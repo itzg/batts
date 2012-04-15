@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<battery-types>
+	<type key="aa" label="AA"/>
+	<type key="aaa" label="AAA"/>
+</battery-types>
