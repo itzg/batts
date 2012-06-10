@@ -23,6 +23,14 @@ html, body {
 	border-color: #26b639;
 	background-color: #ffffff;
 }
+
+#actionsPane .dijitButton {
+	display: block;
+}
+ 
+#actionsPane .dijitButtonNode {
+	display: block;
+}
  
 #appLayout {
     height: 100%;

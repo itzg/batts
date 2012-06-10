@@ -34,7 +34,8 @@ dojoConfig = {
 
 <script>
 	require([ "dojo/parser", "dijit/registry", "batts", "dijit/layout/SplitContainer", "dijit/TitlePane",
-			"dijit/layout/ContentPane", "dijit/form/Button", "dojo/domReady!" ], 
+			"dijit/layout/ContentPane", "dijit/form/Button", "dijit/layout/LayoutContainer", "dijit/layout/ContentPane", 
+			"dojo/domReady!" ], 
 		function(parser, registry, batts, SplitContainer){
 			parser.parse();
 			var mainModule = new batts({batteriesPane:registry.byId('batteries')});
@@ -48,8 +49,10 @@ dojoConfig = {
 		<div id="batteries" data-dojo-type="dijit.TitlePane"
 			data-dojo-props="title: 'Batteries', toggleable:false" style="width: 50%"></div>
 			
-		<div id="actions" style="width: 110px; padding: 5px;">
-			<div><span id="boughtMore" data-dojo-type="dijit.form.Button" style="width: 100%">Bought More</span></div>
+		<div id="actionsPane" data-dojo-type="dijit.layout.ContentPane" style="width: 110px; padding: 5px;">
+			<div id="btnBoughtMore" layoutAlign="right" data-dojo-type="dijit.form.Button">Bought More</div>
+			<div id="btnPutInDevice" layoutAlign="right" data-dojo-type="dijit.form.Button">Put in device</div>
+			
 		</div>
 
 		<div id="devices" data-dojo-type="dijit.TitlePane"
