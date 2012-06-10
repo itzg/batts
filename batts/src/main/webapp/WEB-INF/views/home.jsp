@@ -7,6 +7,8 @@
 
 <spring:url value="/" var="baseurl" />
 
+<link href="${baseurl}/resources/main.css" rel="Stylesheet" type="text/css">
+
 <script type="text/javascript">
 dojoConfig= {
 	parseOnLoad: false,
@@ -28,8 +30,9 @@ function labelOfBatteryType(key) {
 	}
 }
 
-require(["dojo/_base/xhr","dojo/dom", "dojo/dom-construct","dojo/_base/array","dojo/domReady!"],
-		function(xhr,dom,domConstruct,array) {
+require(["dojo/_base/xhr","dojo/dom", "dojo/dom-construct","dojo/_base/array",
+         "dojo/on","dojo/dom-class","dojo/mouse","dojo/domReady!"],
+		function(xhr,dom,domConstruct,array,on,domClass,mouse) {
 			function batteryTypeInfoHandler(batteryTypes) {
 				var listDom = domConstruct.place("<ul/>", "batteryTypesInfo");
 				
@@ -38,19 +41,34 @@ require(["dojo/_base/xhr","dojo/dom", "dojo/dom-construct","dojo/_base/array","d
 				}
 			};
 			
+			function startBatteryEntryHover(evt) {
+				domClass.add(this, "hover-battery-entry");
+			}
+			
+			function stopBatteryEntryHover(evt) {
+				domClass.remove(this, "hover-battery-entry");
+			}
+			
 			function availableBattsLoader() {
 				xhr.get({
 					url: "${baseurl}/household/api/available",
 					handleAs: "json",
 					load: function(result) {
-						var tableDom = domConstruct.place("<table/>", "availableBattsInfo");
+						var containerDom = dom.byId("availableBattsInfo");
 						
 						array.forEach(result, function(entry) {
-							var tableRow = domConstruct.place("<tr/>", tableDom);
-							domConstruct.place("<td>"+labelOfBatteryType(entry.batteryTypeKey)+"</td>", tableRow);
-							domConstruct.place("<td style='padding: 0 5'>x</td>", tableRow);
-							domConstruct.place("<td>"+entry.count+"</td>", tableRow);
+							var tableRow = domConstruct.place("<div class='battery-entry'/>", containerDom);
 							
+							var summaryLine = domConstruct.place("<div class='summary-line'/>", tableRow);
+							domConstruct.place("<span class='battery-type-col'>"+labelOfBatteryType(entry.batteryTypeKey)+"</span>", 
+								summaryLine);
+							domConstruct.place("<span class='battery-x-col'>x</span>", 
+								summaryLine);
+							domConstruct.place("<span class='battery-count-col'>"+entry.count+"</span>", 
+								summaryLine);
+							
+							on(tableRow, mouse.enter, startBatteryEntryHover);
+							on(tableRow, mouse.leave, stopBatteryEntryHover);
 						});
 					}
 				});

@@ -1,0 +1,83 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+}
+
+.battsBatteryWidget {
+	border: thin solid;
+}
+
+.battsBatteryWidgetOff {
+	border-color: #cdcdcd;
+	background-color: #ffffff;
+}
+ 
+.battsBatteryWidgetOver {
+	border-color: #cdcdcd;
+	background-color: #d1f1d3;
+}
+ 
+.battsBatteryWidgetOn {
+	border-color: #26b639;
+	background-color: #ffffff;
+}
+ 
+#appLayout {
+    height: 100%;
+}
+
+.claro .dijitTitlePane .dijitFixedOpen .dijitArrowNode {
+  display: none;
+}
+
+
+.battery-entry {
+	margin: 5px;
+	border-color: transparent;
+	border-style: solid;
+	border-width: thin;
+	padding: 5px;
+}
+
+.hover-battery-entry {
+	border-color: green;
+	border-style: solid;
+	border-width: thin;
+}
+
+.battery-type-col {
+	width: 3em;
+	text-align: right;
+}
+
+.battery-x-col {
+	width: 1.5em;
+	text-align: center;
+}
+
+.battery-count-col {
+	width: 5em;
+}
+
+.summary-line {
+	height: 30px;
+	position: relative;
+}
+
+.summary-line > .battery-type-col {
+	position: absolute;
+	left: 0px;
+}
+
+.summary-line > .battery-x-col {
+	position: absolute;
+	left: 3.5em;
+}
+
+.summary-line > .battery-count-col {
+	position: absolute;
+	left: 5.5em;
+}
+

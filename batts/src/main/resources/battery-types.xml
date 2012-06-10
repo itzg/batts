@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <battery-types>
-	<type key="aa" label="AA"/>
-	<type key="aaa" label="AAA"/>
+	<type key="AA" label="AA"/>
+	<type key="AAA" label="AAA"/>
+	<type key="C" label="C"/>
+	<type key="D" label="D"/>
+	<type key="9V" label="9V"/>
 </battery-types>

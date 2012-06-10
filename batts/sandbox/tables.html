@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link href="../src/main/webapp/resources/main.css" rel="Stylesheet" type="text/css">
+</head>
+<body>
+
+<div class="active-battery-type">
+	Some content with a border
+</div>
+
+<h1>Table here</h1>
+<table>
+	<tr class="active-battery-type">
+		<td>1-1</td><td>1-2</td>
+	</tr>
+	<tr>
+		<td>2-1</td><td>2-2</td>
+	</tr>
+</table>
+
+<h1>Using divs with spans</h1>
+<div class="battery-entry">
+	<span class="battery-type-col">2</span><span class="battery-x-col">x</span><span class="battery-count-col">AA</span>
+</div>
+<div class="battery-entry active-battery-type">
+	<span class="battery-type-col">4</span><span class="battery-x-col">x</span><span class="battery-count-col">AAA</span>
+</div>
+
+<h1>Using divs and rel pos spans</h1>
+<div class="outer">
+	<div class="entry">
+		<div class="summary-line">
+			<span class="battery-type-col">AA</span><span class="battery-x-col">x</span><span class="battery-count-col">8</span>
+		</div>
+	</div>
+	<div class="entry">
+		<div class="summary-line">
+			<span class="battery-type-col">AAA</span><span class="battery-x-col">x</span><span class="battery-count-col">4</span>
+		</div>
+	</div>
+</div>
+</body>
+</html>
