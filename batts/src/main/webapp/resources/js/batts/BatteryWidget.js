@@ -1,16 +1,14 @@
 define(["dojo/_base/declare", "dijit/_Widget", "dijit/_Templated", "dojo/text!./templates/BatteryWidget.html",
-        "dojo/dom-class"], 
-        function(declare, _Widget, _Templated, template, domClass) {
+        "dojo/dom-class", "./_SelectableMixin"], 
+        function(declare, _Widget, _Templated, template, domClass, _SelectableMixin) {
      
-    return declare("batts.BatteryWidget", [_Widget, _Templated], {
+    return declare("batts.BatteryWidget", [_Widget, _Templated, _SelectableMixin], {
         templateString: template,
         baseClass: "battsBatteryWidget",
         
         available: 0,
         inuse: 0,
         type: "",
-        
-        selected: false,
         
         /*transient*/ _over: false,
         
@@ -52,16 +50,15 @@ define(["dojo/_base/declare", "dijit/_Widget", "dijit/_Templated", "dojo/text!./
         	}
         },
         
-        _setSelectedAttr: function(/*bool*/ value) {
-        	if (this.selected && !value) {
+        onSelectionChanged: function(source, /*bool*/ newValue) {
+        	console.log("BatteryWidget saw selection change to "+newValue);
+        	if (newValue == false) {
         		this._switchOuterClass("On", "Off");
         	}
-        	else if (!this.selected && value) {
+        	else {
         		domClass.remove(this.outerNode, this.baseClass+"Over "+this.baseClass+"Off");
         		domClass.add(this.outerNode, this.baseClass+"On");
         	}
-        	
-        	this._set("selected", value);
         }
         //  your custom code goes here
     });

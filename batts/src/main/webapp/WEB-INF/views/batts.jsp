@@ -50,8 +50,10 @@ dojoConfig = {
 			data-dojo-props="title: 'Batteries', toggleable:false" style="width: 50%"></div>
 			
 		<div id="actionsPane" data-dojo-type="dijit.layout.ContentPane" style="width: 110px; padding: 5px;">
-			<div id="btnBoughtMore" layoutAlign="right" data-dojo-type="dijit.form.Button">Bought More</div>
-			<div id="btnPutInDevice" layoutAlign="right" data-dojo-type="dijit.form.Button">Put in device</div>
+			<div id="btnBoughtMore" data-dojo-type="dijit.form.Button" 
+				disabled="true">Bought More</div>
+			<div id="btnPutInDevice" data-dojo-type="dijit.form.Button"
+				disabled="true">Put in device</div>
 			
 		</div>
 
