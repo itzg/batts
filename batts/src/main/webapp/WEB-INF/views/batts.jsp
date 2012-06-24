@@ -33,7 +33,16 @@ config = {
         </div>
     </div>
     <div id="actions">
-        <button id="btnAddMore">Add More Batteries</button>
+        <div id="availableChannel">
+            <button id="btnAvailable">Available Batteries</button>
+            <img src="${resourceurl}/img/BtnSplitterTwoWay.png" id="availableAddOrRemoveSplitter"/>
+            <div id="availableAddOrRemove">
+                <div>
+                <button id="btnAddMore">Add</button></div>
+                <div>
+                <button id="btnAddMore">Remove</button></div>
+            </div>
+        </div>
     </div>
     <div id="devices">
         <h1>Devices</h1>

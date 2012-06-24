@@ -58,3 +58,15 @@ label.error {
 input.error {
 	border-color: red;
 }
+
+#availableAddOrRemove {
+	display: inline-block;
+}
+
+#availableAddOrRemove  button {
+	width: 7em;
+}
+
+#availableChannel > * {
+	vertical-align: middle;
+}

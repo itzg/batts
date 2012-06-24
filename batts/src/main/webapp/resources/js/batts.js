@@ -51,13 +51,16 @@ var dialogs = {
         }
 };
 
+var availableButtons = {
+        
+};
 
 ///// ENTRY ///////////////////////////////////////////////////////////////////
 
 $(document).ready(function() {
+    $("button").button();
+    
 	initBatteriesPanel();
-	
-	$("button").button();
 	
 	wireActions();
 	
@@ -67,7 +70,25 @@ $(document).ready(function() {
 ///// FUNCTIONS ///////////////////////////////////////////////////////////////
 
 function initBatteriesPanel() {
-    $("#batteries > .content").selectable({filter:".battery"});
+    var batteriesSelectable = $("#batteries > .content").selectable({filter:".battery",
+        selected:function(event, ui) {
+            console.log("Event ",event,"ui", ui);
+            batterySelectionChanged();
+        },
+        unselected: function(){
+            batterySelectionChanged();
+        }}
+    );
+    
+    function batterySelectionChanged() {
+        var selectedCount = batteriesSelectable.find(".ui-selected").length;
+        console.log("selected count is "+selectedCount);
+        $("#btnAvailable").button('option', 'disabled', selectedCount == 0);
+        if (selectedCount == 0) {
+            adjustAvailableAddOrRemove(false);
+        }
+    };
+    batterySelectionChanged();
     
     $.getJSON(config.baseurl+"/household/api/counts", function(data) {
         $.each(data, function(i,val){
@@ -89,6 +110,21 @@ function initBatteriesPanel() {
 
 }
 
+var availableSplitterShowing = false;
+
+function adjustAvailableAddOrRemove(show) {
+    if (show) {
+        $("#availableAddOrRemoveSplitter").show();
+        $("#availableAddOrRemove").show();
+        availableSplitterShowing = true;
+    }
+    else {
+        $("#availableAddOrRemoveSplitter").hide();
+        $("#availableAddOrRemove").hide();
+        availableSplitterShowing = false;
+    }
+}
+
 function wireActions() {
     $("#btnAddMore").click(function(){
         var selected = $("#batteries .ui-selected");
@@ -100,5 +136,10 @@ function wireActions() {
         else {
             console.log("None selected");
         }
+    });
+    
+    adjustAvailableAddOrRemove(false);
+    $("#btnAvailable").click(function() {
+        adjustAvailableAddOrRemove(!availableSplitterShowing);
     });
 }
