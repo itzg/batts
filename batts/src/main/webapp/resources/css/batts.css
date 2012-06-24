@@ -1,0 +1,60 @@
+@CHARSET "ISO-8859-1";
+
+body {
+	padding: 10px;
+	font-family: sans-serif;
+}
+
+.content {
+	border: thin solid black;
+}
+
+#batteries > h1 {
+	margin-bottom: 0px;
+}
+
+#devices > h1 {
+    margin-bottom: 0px;
+}
+
+.battery {
+	margin: 5px;
+	padding: 5px;
+	display: inline-block;
+	width: 220px;
+	vertical-align: top;
+	position: relative;
+}
+
+.ui-selecting { background: #FECA40; }
+.ui-selected { background: #F39814; color: white; }
+
+.detail {
+	position: absolute;
+	top: 0px;
+	left: 70px;
+	display: inline-block;
+	vertical-align: top;
+	padding-top: 5px;
+}
+
+.label {
+	font-weight: bold;
+}
+
+#dialogs {
+}
+
+#actions {
+	margin: 10px 20px;
+	padding: 10px;
+	background-color: gray;
+}
+
+label.error {
+	color: red;
+}
+
+input.error {
+	border-color: red;
+}

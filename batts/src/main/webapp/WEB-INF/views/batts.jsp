@@ -1,70 +1,54 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>batts</title>
+<title>Batts</title>
 
 <spring:url value="/" var="baseurl" />
-<link rel="stylesheet"
-	href="http://ajax.googleapis.com/ajax/libs/dojo/1.7.2/dijit/themes/claro/claro.css"
-	media="screen">
-<!-- work around until Dojo 1.8 release -->
-<link rel="stylesheet"
-	href="http://ajax.googleapis.com/ajax/libs/dojo/1.7.2/dijit/themes/dijit.css"
-	media="screen">
-<link href="${baseurl}/static/css/main.css" rel="stylesheet"
-	type="text/css">
-
-<script>
-dojoConfig = {
-	async: true, 
-	tlmSiblingOfDojo: false,
-	batts: {
-		baseurl: "${baseurl}"
-	},
-	packages:[
-		{name:"batts", location:"${baseurl}/static/js/batts"}
-	]
+<spring:url value="/static" var="resourceurl" />
+<script type="text/javascript">
+config = {
+    baseurl: "${baseurl}",
+    resourceurl: "${resourceurl}"
 }
 </script>
-<script src="http://ajax.googleapis.com/ajax/libs/dojo/1.7.2/dojo/dojo.js"></script>
+<link href="${resourceurl}/css/ui-lightness/jquery-ui-1.8.21.custom.css" rel="Stylesheet" type="text/css">
+<link href="${resourceurl}/css/batts.css" rel="Stylesheet" type="text/css">
+<link href="../../resources/css/batts.css" rel="Stylesheet" type="text/css">
 
-<script>
-	require([ "dojo/parser", "dijit/registry", "batts", "dijit/layout/SplitContainer", "dijit/TitlePane",
-			"dijit/layout/ContentPane", "dijit/form/Button", "dijit/layout/LayoutContainer", "dijit/layout/ContentPane", 
-			"dojo/domReady!" ], 
-		function(parser, registry, batts, SplitContainer){
-			parser.parse();
-			var mainModule = new batts({batteriesPane:registry.byId('batteries')});
-	});
-</script>
+<script src="${resourceurl}/js/jquery-1.7.2.js"></script>
+<script src="${resourceurl}/js/jquery-ui-1.8.21.custom.min.js"></script>
+<script src="${resourceurl}/js/jquery.validate.js"></script>
+<script src="${resourceurl}/js/batts.js"></script>
 
 </head>
-<body class="claro">
-
-	<div id="appLayout" data-dojo-type="dijit.layout.SplitContainer">
-		<div id="batteries" data-dojo-type="dijit.TitlePane"
-			data-dojo-props="title: 'Batteries', toggleable:false" style="width: 50%"></div>
-			
-		<div id="actionsPane" data-dojo-type="dijit.layout.ContentPane" style="width: 110px; padding: 5px;">
-			<div id="btnBoughtMore" data-dojo-type="dijit.form.Button" 
-				disabled="true">Bought More</div>
-			<div id="btnPutInDevice" data-dojo-type="dijit.form.Button"
-				disabled="true">Put in device</div>
-			
-		</div>
-
-		<div id="devices" data-dojo-type="dijit.TitlePane"
-			data-dojo-props="title: 'Devices', toggleable:false">
-				<div id="devices-inuse" data-dojo-type="dijit.TitlePane"
-					data-dojo-props="title: 'In-use'">in-use</div>
-				<div id="devices-unused" data-dojo-type="dijit.TitlePane"
-					data-dojo-props="title: 'Unused'">unused</div>
-		</div>
-	</div>
-
+<body>
+    <div id="batteries">
+        <h1>Batteries</h1>
+        <div class="content">
+        </div>
+    </div>
+    <div id="actions">
+        <button id="btnAddMore">Add More Batteries</button>
+    </div>
+    <div id="devices">
+        <h1>Devices</h1>
+        <div class="content"></div>
+    </div>
+    <div id="dialogs">
+        <div id="dlgAddMore">
+            <form method="post" action="#">
+            <div>
+            <label>How many</label>
+            <input type="text" name="count" value="2"></input>
+            </div>
+            <button id="dlgAddMore-add" type="submit">Add</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

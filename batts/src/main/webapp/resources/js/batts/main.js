@@ -1,6 +1,14 @@
-define([ "dojo/_base/declare", "dojo/_base/xhr", "dojo/_base/array", "./BatteryWidget", "dojo/dom-construct",
-         "./_SelectableGroup", "dijit/registry", "dojo/_base/connect"], 
-		function(declare, xhr, array, BatteryWidget, domConstruct, SelectableGroup, registry, connect) {
+define([ "dojo/_base/declare", 
+         "dojo/_base/xhr", 
+         "dojo/_base/array", 
+         "./BatteryWidget", 
+         "dojo/dom-construct",
+         "./_SelectableGroup", 
+         "dijit/registry", 
+         "dojo/_base/connect", 
+         "dojo/on", 
+         "dijit/popup"], 
+		function(declare, xhr, array, BatteryWidget, domConstruct, SelectableGroup, registry, connect, on, popup) {
 
 	return declare(null, {
 		// PROPERTIES
@@ -23,6 +31,11 @@ define([ "dojo/_base/declare", "dojo/_base/xhr", "dojo/_base/array", "./BatteryW
 			});
 			connect.connect(this.selectableGroup, "onDeselected", btnBoughtMore, function() {
 				btnBoughtMore.set('disabled', true);
+			});
+			on(registry.byId("addMoreForm"), "submit", function(evt) {
+//				alert("Form submitted");
+				evt.preventDefault();
+				dijit.popup.close(registory.byId("boughtDlg"));
 			});
 			
 			function addBatteryWidgets(result) {
