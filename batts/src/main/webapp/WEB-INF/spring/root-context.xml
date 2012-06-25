@@ -9,7 +9,7 @@
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
 
-	<mongo:db-factory dbname="batts"/>
+	<mongo:db-factory id="mongoDbFactory" dbname="batts"/>
 
 	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
 		<constructor-arg ref="mongoDbFactory" />

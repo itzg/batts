@@ -11,6 +11,8 @@ public class Household {
 	private String id;
 	
 	private List<BatteryBundle> available;
+
+	private List<Device> devices;
 	
 	@Override
 	public String toString() {
@@ -31,5 +33,13 @@ public class Household {
 
 	public void setAvailable(List<BatteryBundle> available) {
 		this.available = available;
+	}
+
+	public List<Device> getDevices() {
+		return devices;
+	}
+
+	public void setDevices(List<Device> devices) {
+		this.devices = devices;
 	}
 }

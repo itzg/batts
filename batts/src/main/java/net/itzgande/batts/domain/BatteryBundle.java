@@ -12,6 +12,12 @@ public class BatteryBundle {
 		batteryTypeKey = key;
 		this.count = count;
 	}
+	
+	@Override
+	public String toString() {
+		return BatteryBundle.class.getSimpleName()+"[type="+batteryTypeKey+
+				", count="+count+"]";
+	}
 
 	public String getBatteryTypeKey() {
 		return batteryTypeKey;

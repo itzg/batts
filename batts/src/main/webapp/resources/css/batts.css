@@ -5,6 +5,10 @@ body {
 	font-family: sans-serif;
 }
 
+form label {
+	font-weight: bold;
+}
+
 .content {
 	border: thin solid black;
 }
@@ -49,6 +53,8 @@ body {
 	margin: 10px 20px;
 	padding: 10px;
 	background-color: gray;
+	overflow: auto;
+	height: auto;
 }
 
 label.error {
@@ -59,14 +65,44 @@ input.error {
 	border-color: red;
 }
 
-#availableAddOrRemove {
+#availableChannel {
+	overflow: auto;
+}
+
+#availableChannel > *,
+    #addRemoveChoices > * {
 	display: inline-block;
+    vertical-align: middle;
 }
 
 #availableAddOrRemove  button {
 	width: 7em;
 }
 
-#availableChannel > * {
+#battHowManyForm {
+	position: relative;
+}
+
+#battHowManyForm > form > * {
 	vertical-align: middle;
+}
+
+.imageButton {
+	padding: 5px;
+}
+
+.device {
+    margin: 5px;
+    padding: 5px;
+    display: inline-block;
+    width: 150px;
+    vertical-align: top;
+}
+
+.device label {
+	font-weight: bold;
+}
+
+.device description {
+	font-style: italic;
 }
