@@ -52,7 +52,7 @@ form label {
 #actions {
 	margin: 10px 20px;
 	padding: 10px;
-	background-color: gray;
+	background-color: #808080;
 	overflow: auto;
 	height: auto;
 }
@@ -67,6 +67,7 @@ input.error {
 
 #availableChannel {
 	overflow: auto;
+	margin-bottom: 10px;
 }
 
 #availableChannel > *,
@@ -99,10 +100,27 @@ input.error {
     vertical-align: top;
 }
 
-.device label {
+.device .label {
 	font-weight: bold;
 }
 
-.device description {
+.device .description {
 	font-style: italic;
+}
+
+.device .battery-count {
+	display: inline-block;
+	border: thin solid black;
+	padding: 3px;
+	margin: 3px 0px;
+}
+
+.device .full {
+	background-color: black;
+	color: white;
+}
+
+.device .empty {
+	background: none;
+	color: black;
 }

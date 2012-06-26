@@ -1,11 +1,11 @@
 ///// GLOBALS /////////////////////////////////////////////////////////////////
 
 var batteries = {
-   selectedWidget:null,
-   howManyForm:null,
-   howManyFormRules:{
-       count: {required:true, min:1}
-   },
+   selectedWidget: null,
+   
+   widgetsByType: {},
+   
+   howManyForm: null,
    
    getSelectedBatteryTypeKey:function() {
        return this.selectedWidget != null ? this.selectedWidget.data().batteryTypeKey :
@@ -18,8 +18,15 @@ var batteries = {
    }
 };
 
+var devices = {
+   selectedWidget: null,
+   btnOutIn: null
+};
+
 var dialogs = {
    addDevice: null,
+   
+   error: null,
    
    setup: function() {
        this.addDevice = $("#dlgAddDevice").dialog({
@@ -40,6 +47,23 @@ var dialogs = {
        $("#dlgAddDevice-btnCancel").click(function(){
            dialogs.addDevice.dialog("close");
        });
+       
+       this.error = $("#dlgError").dialog({
+           autoOpen: false,
+           modal: true,
+           title: "Error",
+           width: 200
+       });
+       
+       
+       $("#dlgError-btnOK").click(function(){
+           dialogs.error.dialog("close");
+       });
+   },
+   
+   showError: function(msg) {
+       $("#dlgError-content").html(msg);
+       this.error.dialog("open");
    }
         
 };
@@ -115,6 +139,7 @@ function initBatteriesPanel() {
                     '<span class="available">'+val.available+'</span> available</div>'+
                     '</div>'+
                 '</div>').data(val);
+            batteries.widgetsByType[val.batteryTypeKey] = batteryWidget;
             batteryWidget.appendTo("#batteries .content");
         });
     });
@@ -130,20 +155,51 @@ function submitNewDevice(form) {
     );
 }
 
+function updateDeviceBatteryCountStyle(deviceWidget) {
+    var field = deviceWidget.find(".battery-count");
+    field.toggleClass("full", deviceWidget.data().using.count > 0);
+    field.toggleClass("empty", deviceWidget.data().using.count == 0);
+}
+
 function addDevice(deviceData) {
     var deviceWidget = $('<div class="device ui-widget-content">'+
             '<div class="label">'+deviceData.label+'</div>'+
             '<div class="description">'+(deviceData.description?deviceData.description:"")+'</div>'+
+            '<div><span class="battery-count">'+deviceData.needs.count+' '+deviceData.needs.batteryTypeKey+'</span></div>'+
         '</div>').data(deviceData);
+    updateDeviceBatteryCountStyle(deviceWidget);
     deviceWidget.appendTo("#devices .content");
+}
+
+function updateOutInButtonText(selected, takingOut) {
+    if (selected) {
+        devices.btnOutIn.find(".ui-button-text").html(takingOut ? "Take Out" : "Put In");
+        devices.btnOutIn.button("enable");
+    }
+    else {
+        devices.btnOutIn.find(".ui-button-text").html("In/Out");
+        devices.btnOutIn.button("disable");
+    }
+}
+
+function handleDeviceSelected(device) {
+    devices.selectedWidget = $(device);
+    updateOutInButtonText(true, devices.selectedWidget.data().using.count > 0);
+}
+
+function handleDeviceUnselected(device) {
+    if ($("#devices > .content > .ui-selected").length == 0) {
+        updateOutInButtonText(false);
+    }
 }
 
 function initDevicesPanel() {
     var selectable = $("#devices > .content").selectable({filter:".device",
         selected:function(event, ui) {
-            console.log("Event ",event,"ui", ui);
+            handleDeviceSelected(ui.selected);
         },
-        unselected: function(){
+        unselected: function(event, ui){
+            handleDeviceUnselected(ui.unselected);
         }}
     );
     
@@ -154,6 +210,59 @@ function initDevicesPanel() {
         });
     });
 
+}
+
+function putBatteriesInDevice(device, battery) {
+    // TODO submit AJAX, use result to populate widgets with definitive values
+    var needCount = device.data().needs.count;
+    battery.data().available -= needCount;
+    battery.data().inuse += needCount;
+    device.data().using.count += needCount;
+    
+    updateBatteryWidgetCounts(battery);
+    updateDeviceBatteryCountStyle(device);
+    updateOutInButtonText(true, true);
+}
+
+function removeBatteriesFromDevice(device, battery) {
+    // TODO submit AJAX, use result to populate widgets with definitive values
+    var hasCount = device.data().using.count;
+    battery.data().available += hasCount;
+    battery.data().inuse -= hasCount;
+    device.data().using.count -= hasCount;
+    
+    updateBatteryWidgetCounts(battery);
+    updateDeviceBatteryCountStyle(device);
+    updateOutInButtonText(true, false);
+}
+
+function shuffleBatteriesInfromDevice() {
+    var device = devices.selectedWidget;
+    var type = device.data().needs.batteryTypeKey;
+    var battery = batteries.widgetsByType[type];
+    if (battery) {
+        if (device.data().using.count > 0) {
+            // taking out
+            removeBatteriesFromDevice(device, battery);
+        }
+        else {
+            // putting in...check there's enough available
+                var available = battery.data().available;
+                var needsCount = device.data().needs.count;
+                if (available >= needsCount) {
+                    putBatteriesInDevice(device, battery);
+                }
+                else {
+                    dialogs.showError("Not enough "
+                            + type
+                            + " batteries available. Needs " + needsCount
+                                    + ", but only " + available + " available.");
+                }
+        }
+    }
+    else {
+        console.error("Couldn't find widget for battery type "+type);
+    }
 }
 
 var availableSplitterShowing = false;
@@ -204,6 +313,13 @@ function adjustHowManyForm(showing, adding) {
     }
 }
 
+function updateBatteryWidgetCounts(battery) {
+    var data = battery.data();
+    battery.find(".counts > .available").html(data.available);
+    battery.find(".counts > .total").html(data.available+data.inuse);
+    battery.find(".counts > .inuse").html(data.inuse);
+}
+
 function wireActions() {
     $("#btnAvailable").click(function() {
         adjustAvailableAddOrRemove(!availableSplitterShowing);
@@ -230,9 +346,7 @@ function wireActions() {
                 console.log("got back", newCount);
                 var widgetData = batteries.getSelectedBatteryData();
                 widgetData.available = newCount;
-                widgetData.total = newCount + widgetData.inuse;
-                batteries.selectedWidget.find(".counts > .available").html(widgetData.available);
-                batteries.selectedWidget.find(".counts > .total").html(widgetData.total);
+                updateBatteryWidgetCounts(batteries.selectedWidget);
             });
             adjustAvailableAddOrRemove(false);
         }
@@ -249,5 +363,10 @@ function wireActions() {
     
     $("#btnAddDevice").click(function(){
         dialogs.addDevice.dialog("open");
+    });
+    
+    devices.btnOutIn = $("#btnOutIn");
+    devices.btnOutIn.click(function(){
+        shuffleBatteriesInfromDevice();
     });
 }

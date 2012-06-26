@@ -60,6 +60,7 @@
         </div>
         <div id="devicesChannel">
             <button id="btnAddDevice">Add Device</button>
+            <button id="btnOutIn" disabled="true">Out/In</button>
         </div>
     </div>
     <div id="devices">
@@ -106,6 +107,10 @@
                     <a href="#" id="dlgAddDevice-btnCancel">Cancel</a>
                 </div>
             </form>
+        </div>
+        <div id="dlgError" class="initiallyHidden">
+            <div id="dlgError-content"></div>
+            <div><button id="dlgError-btnOK">OK</button></div>
         </div>
     </div>
 </body>
