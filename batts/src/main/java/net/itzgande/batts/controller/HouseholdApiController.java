@@ -4,6 +4,7 @@ import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,12 +21,16 @@ import org.springframework.data.mongodb.core.FindAndModifyOptions;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.HttpServerErrorException;
+
+import com.mongodb.WriteResult;
 
 @Controller
 @RequestMapping("/household/api")
@@ -38,6 +43,12 @@ public class HouseholdApiController {
 		public int available;
 		public int inuse;
 	}	
+	
+	public static class DeviceTransferResults {
+		public int available;
+		public int totalInUse;
+		public int inDevice;
+	}
 	
 	@Autowired
 	MongoTemplate mongoTemplate;
@@ -108,7 +119,7 @@ public class HouseholdApiController {
 		Household householdToFind = (Household) request.getAttribute(Household.ATTRIBUTE_NAME);
 		
 		final Query query = query(where("_id").is(householdToFind.getId()));
-		query.fields().include("available");
+		query.fields().include("available").include("devices");
 		Household household = mongoTemplate.findOne(query, Household.class);
 		
 		List<Counts> results = new ArrayList<Counts>();
@@ -116,6 +127,15 @@ public class HouseholdApiController {
 			final Counts c = new Counts();
 			c.batteryTypeKey = b.getBatteryTypeKey();
 			c.available = b.getCount();
+			if (household.getDevices() != null) {
+				// sloppy, but simple
+				for (Device d : household.getDevices()) {
+					if (d.getUsing().getBatteryTypeKey()
+							.equals(c.batteryTypeKey)) {
+						c.inuse += d.getUsing().getCount();
+					}
+				}
+			}
 			results.add(c);
 		}
 		
@@ -130,7 +150,7 @@ public class HouseholdApiController {
 			@RequestParam int count, @RequestParam String type) {
 		Household householdToFind = (Household) request.getAttribute(Household.ATTRIBUTE_NAME);
 		Device device = new Device();
-		device.setId(ObjectId.get());
+		device.setId(ObjectId.get().toString());
 		device.setLabel(label);
 		device.setDescription(description);
 		device.setNeeds(new BatteryBundle(type, count));
@@ -154,5 +174,55 @@ public class HouseholdApiController {
 		query.fields().include("devices");
 		Household household = mongoTemplate.findOne(query, Household.class);
 		return household.getDevices();
+	}
+	
+	@RequestMapping(value="putInDevice", method = RequestMethod.POST, produces="application/json")
+	@ResponseBody
+	public DeviceTransferResults putBatteriesInDevice(HttpServletRequest request, @RequestParam String batteryTypeKey, @RequestParam String deviceId,
+			@RequestParam int count) {
+		Household householdToFind = (Household) request.getAttribute(Household.ATTRIBUTE_NAME);
+
+		// Error checking?
+		mongoTemplate.updateFirst(new Query(where("_id").is(householdToFind.getId())
+				.and("available.batteryTypeKey").is(batteryTypeKey)
+				), 
+				new Update().inc("available.$.count", -count),
+				Household.class);
+		final Query query = new Query(where("_id").is(householdToFind.getId())
+				.and("devices._id").is(new ObjectId(deviceId))
+				);
+		query.fields().include("available").include("devices");
+		Household queryResults = mongoTemplate.findAndModify(query, 
+				new Update().inc("devices.$.using.count", count),
+				new FindAndModifyOptions().returnNew(true),
+				Household.class);
+		
+		if (queryResults != null) {
+			DeviceTransferResults results = new DeviceTransferResults();
+			Iterator<BatteryBundle> availableIterator = queryResults.getAvailable()
+					.iterator();
+			while (availableIterator.hasNext()) {
+				BatteryBundle bb = availableIterator.next();
+				if (bb.getBatteryTypeKey().equals(batteryTypeKey)) {
+					results.available = bb.getCount();
+					break;
+				}
+			}
+			Iterator<Device> devicesIterator = queryResults.getDevices().iterator();
+			while (devicesIterator.hasNext()) {
+				Device d = devicesIterator.next();
+				if (d.getUsing().getBatteryTypeKey().equals(batteryTypeKey)) {
+					results.totalInUse += d.getUsing().getCount();
+				}
+				if (d.getId().equals(deviceId)) {
+					results.inDevice = d.getUsing().getCount();
+					// don't break so that we can populate the totalInUse
+				}
+			}
+			return results;
+		}
+		else {
+			throw new HttpServerErrorException(HttpStatus.NOT_MODIFIED);
+		}
 	}
 }

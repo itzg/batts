@@ -41,24 +41,32 @@
          style="stop-color:#ffb237;stop-opacity:1" />
       <stop
          style="stop-color:#e1c9a3;stop-opacity:1"
-         offset="0.11351875"
+         offset="0.07615199"
          id="stop3842" />
       <stop
          id="stop3848"
-         offset="0.26660943"
+         offset="0.10966904"
          style="stop-color:#eee4d5;stop-opacity:1" />
       <stop
-         style="stop-color:#e2ccaa;stop-opacity:1"
-         offset="0.80040407"
+         style="stop-color:#b36d00;stop-opacity:1;"
+         offset="0.15236579"
+         id="stop3831" />
+      <stop
+         id="stop3833"
+         offset="0.81642246"
+         style="stop-color:#b36d00;stop-opacity:1;" />
+      <stop
+         style="stop-color:#cca56a;stop-opacity:1"
+         offset="0.86019087"
          id="stop3850" />
       <stop
          id="stop3846"
-         offset="0.89624935"
+         offset="0.88130265"
          style="stop-color:#c89a52;stop-opacity:1;" />
       <stop
          id="stop3844"
          offset="1"
-         style="stop-color:#b36d00;stop-opacity:1" />
+         style="stop-color:#c17600;stop-opacity:1;" />
     </linearGradient>
     <linearGradient
        id="linearGradient3802">
@@ -120,15 +128,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="4.9928637"
-     inkscape:cx="173.29189"
+     inkscape:cx="142.0473"
      inkscape:cy="952.19478"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      showguides="true"
      inkscape:guide-bbox="true"
-     inkscape:window-width="1600"
-     inkscape:window-height="1138"
+     inkscape:window-width="1920"
+     inkscape:window-height="1018"
      inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1">
@@ -197,7 +205,7 @@
     </g>
     <g
        id="D"
-       inkscape:export-filename="C:\Users\Geoff\git\batts\batts\assets\D-200dpi.png"
+       inkscape:export-filename="C:\Users\Geoff\git\batts-from-origin\batts\src\main\webapp\resources\img\9V-200dpi.png"
        inkscape:export-xdpi="200.31726"
        inkscape:export-ydpi="200.31726">
       <rect
@@ -220,7 +228,7 @@
          height="48.5"
          width="26.5"
          id="rect3796"
-         style="fill:url(#linearGradient3836);fill-opacity:1;stroke:#604114;stroke-width:0.30000001;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+         style="fill:url(#linearGradient3836);fill-opacity:1;stroke:#604114;stroke-width:0.30000000999999998;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
     </g>
     <g
        id="C"

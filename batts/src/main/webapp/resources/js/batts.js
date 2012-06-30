@@ -212,28 +212,21 @@ function initDevicesPanel() {
 
 }
 
-function putBatteriesInDevice(device, battery) {
-    // TODO submit AJAX, use result to populate widgets with definitive values
-    var needCount = device.data().needs.count;
-    battery.data().available -= needCount;
-    battery.data().inuse += needCount;
-    device.data().using.count += needCount;
-    
-    updateBatteryWidgetCounts(battery);
-    updateDeviceBatteryCountStyle(device);
-    updateOutInButtonText(true, true);
-}
-
-function removeBatteriesFromDevice(device, battery) {
-    // TODO submit AJAX, use result to populate widgets with definitive values
-    var hasCount = device.data().using.count;
-    battery.data().available += hasCount;
-    battery.data().inuse -= hasCount;
-    device.data().using.count -= hasCount;
-    
-    updateBatteryWidgetCounts(battery);
-    updateDeviceBatteryCountStyle(device);
-    updateOutInButtonText(true, false);
+function transferBatteriesWithDevice(device, battery, putIn) {
+    var direction = putIn ? 1 : -1;
+    $.post(config.buildAjaxUrl("/household/api/putInDevice"), { 
+        batteryTypeKey: battery.data().batteryTypeKey,
+        deviceId: device.data().id,
+        count: direction * device.data().needs.count,
+        }, function(result) {
+            battery.data().available = result.available;
+            battery.data().inuse = result.totalInUse;
+            device.data().using.count = result.inDevice;
+            
+            updateBatteryWidgetCounts(battery);
+            updateDeviceBatteryCountStyle(device);
+            updateOutInButtonText(true, true);
+        });
 }
 
 function shuffleBatteriesInfromDevice() {
@@ -243,14 +236,14 @@ function shuffleBatteriesInfromDevice() {
     if (battery) {
         if (device.data().using.count > 0) {
             // taking out
-            removeBatteriesFromDevice(device, battery);
+            transferBatteriesWithDevice(device, battery, false);
         }
         else {
             // putting in...check there's enough available
                 var available = battery.data().available;
                 var needsCount = device.data().needs.count;
                 if (available >= needsCount) {
-                    putBatteriesInDevice(device, battery);
+                    transferBatteriesWithDevice(device, battery, true);
                 }
                 else {
                     dialogs.showError("Not enough "
