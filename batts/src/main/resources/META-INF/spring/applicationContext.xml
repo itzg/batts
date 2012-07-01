@@ -16,8 +16,9 @@
 		<property name="writeResultChecking" value="EXCEPTION"></property>
 	</bean>
 
-	<context:component-scan base-package="net.itzgande.batts.service" />
-	<context:component-scan base-package="net.itzgande.batts.config" />
+    <context:component-scan base-package="net.itzgande.batts">
+        <context:exclude-filter expression="org.springframework.stereotype.Controller" type="annotation"/>
+    </context:component-scan>
 	
 	<bean class="net.itzgande.batts.service.InitMongoService" init-method="init"></bean>
 

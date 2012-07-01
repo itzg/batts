@@ -1,4 +1,4 @@
-package net.itzgande.batts.config;
+package net.itzgande.batts;
 
 import java.util.Comparator;
 
@@ -8,7 +8,7 @@ public class DeviceComparator implements Comparator<Device> {
 
 	@Override
 	public int compare(Device o1, Device o2) {
-		return o1.getLabel().compareTo(o2.getLabel());
+		return o1.getLabel().compareToIgnoreCase(o2.getLabel());
 	}
 
 }

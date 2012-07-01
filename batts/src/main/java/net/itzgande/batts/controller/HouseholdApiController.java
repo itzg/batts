@@ -12,7 +12,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import net.itzgande.batts.config.DeviceComparator;
+import net.itzgande.batts.DeviceComparator;
 import net.itzgande.batts.domain.BatteryBundle;
 import net.itzgande.batts.domain.Device;
 import net.itzgande.batts.domain.Household;
