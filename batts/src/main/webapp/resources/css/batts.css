@@ -124,3 +124,46 @@ input.error {
 	background: none;
 	color: black;
 }
+
+.dlgRow {
+	margin-bottom: 5px;
+}
+
+.dlgRow > * {
+	vertical-align: baseline;
+}
+
+.dlgRow > label {
+	display: inline-block;
+	width: 8em;
+}
+
+.buttonBar {
+	text-align: right;
+}
+
+.buttonBar > * {
+	vertical-align: baseline;
+	margin: 3px;
+}
+
+#dialogs > div {
+	padding: 5px;
+}
+
+#dlgEditDevice {
+	width: 400px;
+}
+
+#dlgEditDevice-btnDel {
+	margin-right: 20px;
+}
+
+#dlgEditDevice-btnDel .ui-button-text {
+	color: red;
+}
+
+#btnOutIn {
+	width: 115px;
+}
+}

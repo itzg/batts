@@ -23,6 +23,7 @@
 <link href="${resourceurl}/css/ui-lightness/jquery-ui-1.8.21.custom.css" rel="Stylesheet"
     type="text/css">
 <link href="${resourceurl}/css/batts.css" rel="Stylesheet" type="text/css">
+<link href="../../resources/css/batts.css" rel="Stylesheet" type="text/css">
 
 <script src="${resourceurl}/js/jquery-1.7.2.js"></script>
 <script src="${resourceurl}/js/jquery-ui-1.8.21.custom.min.js"></script>
@@ -61,6 +62,7 @@
         <div id="devicesChannel">
             <button id="btnAddDevice">Add Device</button>
             <button id="btnOutIn" disabled="true">Out/In</button>
+            <button id="btnEditDevice" disabled="true">Edit Device</button>
         </div>
     </div>
     <div id="devices">
@@ -111,6 +113,20 @@
         <div id="dlgError" class="initiallyHidden">
             <div id="dlgError-content"></div>
             <div><button id="dlgError-btnOK">OK</button></div>
+        </div>
+        <div id="dlgEditDevice" class="initiallyHidden">
+            <form action="#">
+                <input type="hidden" name="deviceId" id="dlgEditDevice-device"/>
+                <div class="dlgRow"><label for="dlgEditDevice-label">Label</label>
+                    <input name="label" id="dlgEditDevice-label" type="text"/></div>
+                <div class="dlgRow"><label for="dlgEditDevice-desc">Description</label>
+                    <input name="description" id="dlgEditDevice-desc" type="text"/></div>
+                <div class="buttonBar">
+                <button type="button" id="dlgEditDevice-btnDel">Delete</button>
+                <button type="submit" id="dlgEditDevice-btnSave">Save</button>
+                    <a href="#" id="dlgEditDevice-cancel">Cancel</a>
+                </div>
+            </form>
         </div>
     </div>
 </body>

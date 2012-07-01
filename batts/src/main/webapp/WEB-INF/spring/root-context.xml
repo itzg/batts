@@ -13,6 +13,7 @@
 
 	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
 		<constructor-arg ref="mongoDbFactory" />
+		<property name="writeResultChecking" value="EXCEPTION"></property>
 	</bean>
 
 	<context:component-scan base-package="net.itzgande.batts.service" />

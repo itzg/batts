@@ -20,15 +20,40 @@ var batteries = {
 
 var devices = {
    selectedWidget: null,
-   btnOutIn: null
+   btnOutIn: null,
+   
+   getSelected: function(field) {
+       return this.selectedWidget.data()[field];
+   },
+
+   deleteDevice: function(deviceWidget) {
+       $.post(config.buildAjaxUrl("/household/api/deleteDevice"), 
+               {id:deviceWidget.data().id}, 
+               function(result){
+                   devices.recreateDeviceWidgets(result);
+               }
+       );
+   },
+   
+   recreateDeviceWidgets: function(data) {
+       $("#devices > .content > *").remove();
+       $.each(data, function(i,val){
+           addDevice(val);
+       });
+       handleDeviceUnselected(deviceWidget);
+   }
 };
 
 var dialogs = {
    addDevice: null,
    
+   editDevice: null,
+   
    error: null,
    
    setup: function() {
+       //// addDevice ////
+       
        this.addDevice = $("#dlgAddDevice").dialog({
            autoOpen: false,
            modal: true,
@@ -59,11 +84,56 @@ var dialogs = {
        $("#dlgError-btnOK").click(function(){
            dialogs.error.dialog("close");
        });
+       
+       //// editDevice ////
+       
+       this.editDevice = $("#dlgEditDevice").dialog({
+          autoOpen: false,
+          modal: true,
+          title: "Edit Device",
+          width: 400,
+          height: 190
+       });
+       
+       function closeEditDlg() {
+           dialogs.editDevice.dialog("close");
+       }
+       
+       $("#dlgEditDevice > form").validate({rules:{
+           label: {required:true, minlength:1}
+       }, submitHandler: function(form) {
+           $.post(config.buildAjaxUrl("/household/api/editDevice"), $(form).serialize(), function(result){
+               devices.recreateDeviceWidgets(result);
+           });
+           closeEditDlg();
+       }});
+       
+       $("#dlgEditDevice-btnDel").click(function() {
+           closeEditDlg();
+           if (devices.getSelected("using").count == 0) {
+               devices.deleteDevice(devices.selectedWidget);
+           }
+           else {
+               dialogs.showError("Cannot delete device since it still has batteries in-use");
+           }
+       });
+       
+       $("#dlgEditDevice-cancel").click(function(){
+           closeEditDlg();
+       });
    },
    
    showError: function(msg) {
        $("#dlgError-content").html(msg);
        this.error.dialog("open");
+   },
+   
+   showEditDlg: function(deviceWidget) {
+       $("#dlgEditDevice-device")[0].value = devices.getSelected("id");
+       $("#dlgEditDevice-label")[0].value = devices.getSelected("label");
+       $("#dlgEditDevice-desc")[0].value = devices.getSelected("description");
+
+       this.editDevice.dialog("open");
    }
         
 };
@@ -149,8 +219,8 @@ function initBatteriesPanel() {
 function submitNewDevice(form) {
     $.post(config.buildAjaxUrl("/household/api/addDevice"),
             $(form).serialize(),
-            function(result) {
-        addDevice(result);
+            function(data) {
+        devices.recreateDeviceWidgets(data);
     }
     );
 }
@@ -185,11 +255,14 @@ function updateOutInButtonText(selected, takingOut) {
 function handleDeviceSelected(device) {
     devices.selectedWidget = $(device);
     updateOutInButtonText(true, devices.selectedWidget.data().using.count > 0);
+    $("#btnEditDevice").button("enable");
 }
 
 function handleDeviceUnselected(device) {
     if ($("#devices > .content > .ui-selected").length == 0) {
         updateOutInButtonText(false);
+        devices.selectedWidget = null;
+        $("#btnEditDevice").button("disable");
     }
 }
 
@@ -204,10 +277,7 @@ function initDevicesPanel() {
     );
     
     $.getJSON(config.buildAjaxUrl("/household/api/devices"), function(data) {
-        $.each(data, function(i,val){
-            console.debug("Got device",val);
-            addDevice(val);
-        });
+        devices.recreateDeviceWidgets(data);
     });
 
 }
@@ -225,7 +295,7 @@ function transferBatteriesWithDevice(device, battery, putIn) {
             
             updateBatteryWidgetCounts(battery);
             updateDeviceBatteryCountStyle(device);
-            updateOutInButtonText(true, true);
+            updateOutInButtonText(true, putIn);
         });
 }
 
@@ -361,5 +431,9 @@ function wireActions() {
     devices.btnOutIn = $("#btnOutIn");
     devices.btnOutIn.click(function(){
         shuffleBatteriesInfromDevice();
+    });
+    
+    $("#btnEditDevice").click(function(){
+        dialogs.showEditDlg(devices.selectedWidget);
     });
 }

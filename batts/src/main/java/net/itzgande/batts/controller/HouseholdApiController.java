@@ -2,13 +2,17 @@ package net.itzgande.batts.controller;
 
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
+import static org.springframework.data.mongodb.core.FindAndModifyOptions.options;
+import static org.springframework.data.mongodb.core.query.Update.update;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import net.itzgande.batts.config.DeviceComparator;
 import net.itzgande.batts.domain.BatteryBundle;
 import net.itzgande.batts.domain.Device;
 import net.itzgande.batts.domain.Household;
@@ -49,6 +53,8 @@ public class HouseholdApiController {
 		public int totalInUse;
 		public int inDevice;
 	}
+	
+	private static final DeviceComparator DEVICE_COMPARATOR = new DeviceComparator();
 	
 	@Autowired
 	MongoTemplate mongoTemplate;
@@ -144,7 +150,7 @@ public class HouseholdApiController {
 	
 	@RequestMapping(value="addDevice", method=RequestMethod.POST, produces="application/json")
 	@ResponseBody
-	public Device addDevice(HttpServletRequest request, 
+	public List<Device> addDevice(HttpServletRequest request, 
 			@RequestParam String label, 
 			@RequestParam(value="description",required=false) String description, 
 			@RequestParam int count, @RequestParam String type) {
@@ -158,12 +164,39 @@ public class HouseholdApiController {
 		logger.info("Adding device "+device);
 		
 		final Query query = new Query(where("_id").is(householdToFind.getId()));
-		query.fields().include("_id");
-		mongoTemplate.findAndModify(query, 
+		query.fields().include("devices");
+		Household result = mongoTemplate.findAndModify(query, 
 				new Update().push("devices", device),
+				new FindAndModifyOptions().returnNew(true),
 				Household.class);
 
-		return device;
+		return sort(result.getDevices());
+	}
+	
+	
+	@RequestMapping(value="editDevice", method=RequestMethod.POST, produces="application/json")
+	@ResponseBody
+	public List<Device> editDevice(HttpServletRequest request, @RequestParam String deviceId,
+			@RequestParam String label, 
+			@RequestParam(value="description",required=false) String description) {
+		Household householdToFind = (Household) request.getAttribute(Household.ATTRIBUTE_NAME);
+		final Query query = query(where("_id").is(householdToFind.getId()));
+		query.fields().include("devices");
+		Household result = mongoTemplate.findOne(query, Household.class);
+		if (result != null && result.getDevices() != null) {
+			for (Device d : result.getDevices()) {
+				if (d.getId().equals(deviceId)) {
+					d.setLabel(label);
+					d.setDescription(description);
+				}
+			}
+			
+			Household committedResult = mongoTemplate.findAndModify(query, update("devices", result.getDevices()), 
+					options().returnNew(true), Household.class);
+			
+			return sort(committedResult.getDevices());
+		}
+		return null;
 	}
 	
 	@RequestMapping(value="devices", method = RequestMethod.GET, produces="application/json")
@@ -173,7 +206,7 @@ public class HouseholdApiController {
 		final Query query = query(where("_id").is(householdToFind.getId()));
 		query.fields().include("devices");
 		Household household = mongoTemplate.findOne(query, Household.class);
-		return household.getDevices();
+		return sort(household.getDevices());
 	}
 	
 	@RequestMapping(value="putInDevice", method = RequestMethod.POST, produces="application/json")
@@ -224,5 +257,36 @@ public class HouseholdApiController {
 		else {
 			throw new HttpServerErrorException(HttpStatus.NOT_MODIFIED);
 		}
+	}
+	
+	@RequestMapping(value="deleteDevice", method = RequestMethod.POST, produces="application/json")
+	@ResponseBody
+	public List<Device> deleteDevice(HttpServletRequest request, @RequestParam String id) {
+		Household householdToFind = (Household) request.getAttribute(Household.ATTRIBUTE_NAME);
+		Query query = new Query(where("_id").is(householdToFind.getId()));
+		query.fields().include("devices");
+		Household result = mongoTemplate.findOne(query, Household.class);
+		if (result != null) {
+			if (result.getDevices() != null) {
+				Iterator<Device> it = result.getDevices().iterator();
+				while (it.hasNext()) {
+					if (it.next().getId().equals(id)) {
+						it.remove();
+					}
+				}
+				Household committedResult = mongoTemplate.findAndModify(query, 
+						new Update().set("devices", result.getDevices()), 
+						new FindAndModifyOptions().returnNew(true), Household.class);
+				if (committedResult != null) {
+					return sort(committedResult.getDevices());
+				}
+			}
+		}
+		return null;
+	}
+
+	private static List<Device> sort(List<Device> devices) {
+		Collections.sort(devices, DEVICE_COMPARATOR);
+		return devices;
 	}
 }
