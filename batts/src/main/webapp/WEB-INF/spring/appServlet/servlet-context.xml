@@ -15,12 +15,17 @@
 	<resources mapping="/static/**" location="/resources/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<view-controller path="/login"/>
+	<view-controller path="/" view-name="batts"/>
+    <!-- <view-controller path="/" view-name="index"/>  -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="net.itzgande.batts.controller" />
+	<context:component-scan base-package="net.itzgande.batts" use-default-filters="false">
+		<context:include-filter expression="org.springframework.stereotype.Controller" type="annotation"/>
+	</context:component-scan>
 	
 	<interceptors>
 		<interceptor>
@@ -29,4 +34,5 @@
 			</beans:bean>
 		</interceptor>
 	</interceptors>
+	
 </beans:beans>

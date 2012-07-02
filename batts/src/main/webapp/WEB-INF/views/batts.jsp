@@ -129,5 +129,9 @@
             </form>
         </div>
     </div>
+    
+    <div>
+    	Click <a href="j_spring_security_logout">here if you want to logout</a>.
+    </div>
 </body>
 </html>
