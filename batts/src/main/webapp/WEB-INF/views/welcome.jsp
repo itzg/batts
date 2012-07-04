@@ -12,7 +12,8 @@
 
 </head>
 <body>
-<h1>Welcome to batts</h1>
+<div id="banner"></div>
+<h1>...one more thing</h1>
 <div id="introPara">
 You appear to be new here. In one click we can get you setup with a new household area to
 keep track of those pesky rechargeable batteries. 

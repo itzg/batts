@@ -30,7 +30,7 @@ public class HouseholdSelectionInterceptor implements HandlerInterceptor {
 
 		if (battsUser.getHousehold() == null) {
 			logger.warn("user did not have a household assigned yet, so redirecting to welcome: {}", battsUser);
-			response.sendRedirect("/welcome");
+			response.sendRedirect(response.encodeRedirectURL("/welcome"));
 			return false;
 		}
 		

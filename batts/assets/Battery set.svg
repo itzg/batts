@@ -119,6 +119,31 @@
        x2="230.53052"
        y2="97.512184"
        gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3852"
+       id="linearGradient3032"
+       gradientUnits="userSpaceOnUse"
+       x1="100.05835"
+       y1="95.437576"
+       x2="110.85835"
+       y2="95.437576" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3852"
+       id="linearGradient3040"
+       gradientUnits="userSpaceOnUse"
+       x1="100.05835"
+       y1="95.437576"
+       x2="110.85835"
+       y2="95.437576" />
+    <filter
+       id="filter3845"
+       inkscape:label="filter1">
+      <feGaussianBlur
+         stdDeviation="13.461569506726457"
+         id="feGaussianBlur3847" />
+    </filter>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -127,9 +152,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="4.9928637"
-     inkscape:cx="142.0473"
-     inkscape:cy="952.19478"
+     inkscape:zoom="1"
+     inkscape:cx="27.157223"
+     inkscape:cy="803.94744"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -157,7 +182,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>

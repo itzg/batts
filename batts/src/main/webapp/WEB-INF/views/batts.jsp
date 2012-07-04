@@ -12,6 +12,9 @@
 
 </head>
 <body>
+	<div id="banner">
+		<button id="btnDoMore">More Things</button>
+	</div>
     <div id="batteries">
         <h1>Batteries</h1>
         <div class="content"></div>

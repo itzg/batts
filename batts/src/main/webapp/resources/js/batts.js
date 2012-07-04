@@ -159,9 +159,9 @@ function aspectSweep() {
     $(".initiallyHidden").hide();
 
     $(".submitter").click(function(evt) {
-        console.log("submitter got clicked", evt);
+        //console.log("submitter got clicked", evt);
         var formToSubmit = $(evt.target).parents("form").first();
-        console.log("about to submit", formToSubmit);
+        //console.log("about to submit", formToSubmit);
         formToSubmit.submit();
     });
 }
@@ -173,7 +173,7 @@ function getSelectedBatteryWidget() {
 function initBatteriesPanel() {
     var batteriesSelectable = $("#batteries > .content").selectable({filter:".battery",
         selected:function(event, ui) {
-            console.log("Event ",event,"ui", ui);
+            //console.log("Event ",event,"ui", ui);
             batterySelectionChanged();
         },
         unselected: function(){
@@ -198,7 +198,7 @@ function initBatteriesPanel() {
     
     $.getJSON(config.buildAjaxUrl("/household/api/counts"), function(data) {
         $.each(data, function(i,val){
-            console.debug("Got "+val.batteryTypeKey+" with available="+val.available);
+            //console.debug("Got "+val.batteryTypeKey+" with available="+val.available);
             
             var batteryWidget = $('<div class="battery ui-widget-content">'+
                     '<img src="'+config.resourceurl+'/img/'+val.batteryTypeKey+'-200dpi.png"/>'+
@@ -324,7 +324,7 @@ function shuffleBatteriesInfromDevice() {
         }
     }
     else {
-        console.error("Couldn't find widget for battery type "+type);
+        //console.error("Couldn't find widget for battery type "+type);
     }
 }
 
@@ -406,7 +406,7 @@ function wireActions() {
                     (availableAdding ? "inc" : "dec")+
                     "Available/"+batteries.getSelectedBatteryTypeKey(), 
                     batteries.howManyForm.serialize(), function(newCount) {
-                console.log("got back", newCount);
+                //console.log("got back", newCount);
                 var widgetData = batteries.getSelectedBatteryData();
                 widgetData.available = newCount;
                 updateBatteryWidgetCounts(batteries.selectedWidget);

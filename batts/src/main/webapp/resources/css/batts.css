@@ -1,8 +1,19 @@
 @CHARSET "ISO-8859-1";
 
 body {
-	padding: 10px;
+	margin: 10px;
+	margin-left: 43px;
 	font-family: sans-serif;
+	background-image: url(../img/BattsTitle.png);
+	background-repeat: no-repeat;
+}
+
+#banner {
+	height: 50px;
+}
+
+#banner #btnDoMore {
+	float: right;
 }
 
 form label {
