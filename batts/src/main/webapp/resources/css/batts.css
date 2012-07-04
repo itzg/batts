@@ -166,4 +166,8 @@ input.error {
 #btnOutIn {
 	width: 115px;
 }
+
+#getStarted {
+	font-size: 24pt;
+	margin: 20px 0;
 }

@@ -9,17 +9,8 @@
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
 
-	<mongo:db-factory id="mongoDbFactory" dbname="batts"/>
-
-	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
-		<constructor-arg ref="mongoDbFactory" />
-		<property name="writeResultChecking" value="EXCEPTION"></property>
-	</bean>
-
     <context:component-scan base-package="net.itzgande.batts">
         <context:exclude-filter expression="org.springframework.stereotype.Controller" type="annotation"/>
     </context:component-scan>
 	
-	<bean class="net.itzgande.batts.service.InitMongoService" init-method="init"></bean>
-
 </beans>

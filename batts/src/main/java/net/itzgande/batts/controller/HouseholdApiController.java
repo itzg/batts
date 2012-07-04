@@ -286,7 +286,9 @@ public class HouseholdApiController {
 	}
 
 	private static List<Device> sort(List<Device> devices) {
-		Collections.sort(devices, DEVICE_COMPARATOR);
+		if (devices != null) {
+			Collections.sort(devices, DEVICE_COMPARATOR);
+		}
 		return devices;
 	}
 }

@@ -1,31 +1,40 @@
 package net.itzgande.batts.controller;
 
+import java.security.Principal;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.itzgande.batts.config.BattsUserDetails;
+import net.itzgande.batts.domain.BattsUser;
 import net.itzgande.batts.domain.Household;
 
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Query;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 public class HouseholdSelectionInterceptor implements HandlerInterceptor {
-	private static Logger logger = Logger.getLogger(HouseholdSelectionInterceptor.class);
+	private static Logger logger = LoggerFactory.getLogger(HouseholdSelectionInterceptor.class);
 	
-	@Autowired
-	MongoTemplate mongoTemplate;
-
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {
-		logger.warn("Using simplified HouseholdSelectionInterceptor");
-		final Query query = new Query();
-		query.fields().include("_id");
-		Household household = mongoTemplate.findOne(query, Household.class);
-		logger.info("Found the household "+household);
-		request.setAttribute(Household.ATTRIBUTE_NAME, household);
+		Principal user = request.getUserPrincipal();
+		if (user == null) {
+			logger.warn("user was not available, so redirecting to login");
+			response.sendRedirect("/login");
+			return false;
+		}
+		
+		BattsUser battsUser = BattsUserDetails.extractFromPrincipal(user);
+
+		if (battsUser.getHousehold() == null) {
+			logger.warn("user did not have a household assigned yet, so redirecting to welcome: {}", battsUser);
+			response.sendRedirect("/welcome");
+			return false;
+		}
+		
+		request.setAttribute(Household.ATTRIBUTE_NAME, battsUser.getHousehold());
 
 		return true;
 	}

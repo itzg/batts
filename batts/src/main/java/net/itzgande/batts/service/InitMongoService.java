@@ -27,14 +27,20 @@ public class InitMongoService {
 
 		if (!mongoTemplate.collectionExists(Household.class)) {
 			logger.info("Household collection not present, so inserting a default one");
-			Household household = new Household();
-			List<BatteryBundle> emptyBundles = new ArrayList<BatteryBundle>();
-			for (Type type : batteryTypes.getTypes()) {
-				emptyBundles.add(new BatteryBundle(type.getKey(), 0));
-			}
-			household.setAvailable(emptyBundles);
-			
-			mongoTemplate.insert(household);
+			createHousehold();
 		}
+	}
+	
+	public Household createHousehold() {
+		Household household = new Household();
+		List<BatteryBundle> emptyBundles = new ArrayList<BatteryBundle>();
+		for (Type type : batteryTypes.getTypes()) {
+			emptyBundles.add(new BatteryBundle(type.getKey(), 0));
+		}
+		household.setAvailable(emptyBundles);
+		
+		mongoTemplate.insert(household);
+
+		return household;
 	}
 }

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<b:beans xmlns:b="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/data/mongo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd">
+
+	<db-factory id="mongoDbFactory" dbname="batts"/>
+
+	<b:bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+		<b:constructor-arg ref="mongoDbFactory" />
+		<b:property name="writeResultChecking" value="EXCEPTION"/>
+	</b:bean>
+
+	<b:bean class="net.itzgande.batts.service.InitMongoService" init-method="init"/>
+
+	<repositories base-package="net.itzgande.batts.repositories"></repositories>
+
+</b:beans>

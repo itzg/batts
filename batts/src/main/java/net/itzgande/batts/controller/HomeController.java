@@ -1,6 +1,10 @@
 package net.itzgande.batts.controller;
 
+import java.security.Principal;
 import java.util.Locale;
+
+import net.itzgande.batts.config.BattsUserDetails;
+import net.itzgande.batts.domain.BattsUser;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,9 +25,14 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-		// TODO, intercept the "newUser" property of BattsUserDetails to direct to a welcome page
-		return "batts";
+	public String home(Locale locale, Model model, Principal user) {
+		BattsUser battsUser = BattsUserDetails.extractFromPrincipal(user);
+		model.addAttribute("battsUser", battsUser);
+		if (battsUser.getHousehold() == null) {
+			return "welcome";
+		}
+		else {
+			return "batts";
+		}
 	}
-	
 }
