@@ -7,6 +7,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>batts login</title>
+
+<%@ include file="/WEB-INF/pieces/common-head.jsp" %>
+
 </head>
 <body>
   <spring:url value="/j_spring_openid_security_check" var="form_url_openid" />

@@ -8,25 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Welcome to batts</title>
 
-<spring:url value="/" var="baseurl" />
-<spring:url value="/static" var="resourceurl" />
-<script type="text/javascript">
-    config = {
-        baseurl : "${baseurl}",
-        resourceurl : "${resourceurl}",
-        
-        buildAjaxUrl: function(subpath) {
-           return this.baseurl == "/" ? subpath : this.baseurl + subpath;
-        }
-    }
-</script>
-<link href="${resourceurl}/css/ui-lightness/jquery-ui-1.8.21.custom.css" rel="Stylesheet"
-    type="text/css">
-<link href="${resourceurl}/css/batts.css" rel="Stylesheet" type="text/css">
-<link href="../../resources/css/batts.css" rel="Stylesheet" type="text/css">
-
-<script src="${resourceurl}/js/jquery-1.7.2.js"></script>
-<script src="${resourceurl}/js/jquery-ui-1.8.21.custom.min.js"></script>
+<%@ include file="/WEB-INF/pieces/common-head.jsp" %>
 
 </head>
 <body>

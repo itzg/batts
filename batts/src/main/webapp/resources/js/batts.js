@@ -40,7 +40,7 @@ var devices = {
        $.each(data, function(i,val){
            addDevice(val);
        });
-       handleDeviceUnselected(deviceWidget);
+       handleDeviceUnselected(this.selectedWidget);
    }
 };
 

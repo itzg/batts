@@ -1,11 +1,14 @@
 package net.itzgande.batts.domain;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection="households")
-public class Household {
+public class Household implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	public static final String ATTRIBUTE_NAME = Household.class.getCanonicalName();
 
 	private String id;

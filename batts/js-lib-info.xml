@@ -1,0 +1,26 @@
+<section name="jquery">
+	<module>
+		<name>core</name>
+		<name>ui</name>
+		<url>http://jquery.com/</url>
+		<description>
+			Provides the core and UI widgets for JQuery.
+		</description>
+	</module>
+	
+	<module>
+		<name>validate</name>
+		<url>http://bassistance.de/jquery-plugins/jquery-plugin-validation</url>
+		<description>
+			Provides client-side form validation and live feedback
+		</description>
+	</module>
+	
+	<module>
+		<name>qTip2</name>
+		<url>http://craigsworks.com/projects/qtip2/</url>
+		<description>
+			Tooltip widget
+		</description>
+	</module>
+</section>

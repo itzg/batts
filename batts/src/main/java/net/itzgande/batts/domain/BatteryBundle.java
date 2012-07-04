@@ -1,6 +1,10 @@
 package net.itzgande.batts.domain;
 
-public class BatteryBundle {
+import java.io.Serializable;
+
+public class BatteryBundle implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	private String batteryTypeKey;
 	
 	private int count;
