@@ -37,10 +37,12 @@ var devices = {
    
    recreateDeviceWidgets: function(data) {
        $("#devices > .content > *").remove();
-       $.each(data, function(i,val){
-           addDevice(val);
-       });
-       handleDeviceUnselected(this.selectedWidget);
+       if (data) {
+	       $.each(data, function(i,val){
+	           addDevice(val);
+	       });
+	       handleDeviceUnselected(this.selectedWidget);
+       }
    }
 };
 

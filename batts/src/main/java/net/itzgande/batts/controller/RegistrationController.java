@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -56,5 +57,17 @@ public class RegistrationController {
 		HouseholdShare share = sharesService.allocate(household, battsUser);
 		
 		return share;
+	}
+	
+	@RequestMapping(value = "/join", method=RequestMethod.POST)
+	public String/*view*/ join(Principal user, @RequestParam int shareCode) {
+		BattsUser battsUser = BattsUserDetails.extractFromPrincipal(user);
+
+		HouseholdShare householdShare = sharesService.join(shareCode);
+		if (householdShare != null) {
+			userDetailsService.joinUserToHousehold(battsUser, householdShare.getHousehold());
+		}
+		
+		return "redirect:/";
 	}
 }

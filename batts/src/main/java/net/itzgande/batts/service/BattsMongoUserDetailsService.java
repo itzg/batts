@@ -6,6 +6,7 @@ import java.util.Map;
 
 import net.itzgande.batts.config.BattsUserDetails;
 import net.itzgande.batts.domain.BattsUser;
+import net.itzgande.batts.domain.Household;
 import net.itzgande.batts.repositories.UserRepository;
 
 import org.slf4j.Logger;
@@ -67,6 +68,14 @@ public class BattsMongoUserDetailsService implements UserDetailsService, Authent
 	}
 
 	public void save(BattsUser battsUser) {
+		userRepository.save(battsUser);
+	}
+
+	public void joinUserToHousehold(BattsUser battsUser, Household household) {
+		if (household == null) {
+			return;
+		}
+		battsUser.setHousehold(household);
 		userRepository.save(battsUser);
 	}
 

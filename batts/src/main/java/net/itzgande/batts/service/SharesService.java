@@ -1,5 +1,6 @@
 package net.itzgande.batts.service;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.Random;
 
@@ -19,6 +20,8 @@ public class SharesService {
 	HouseholdShareRepository repository;
 
 	public HouseholdShare allocate(Household household, BattsUser battsUser) {
+		purge();
+		
 		Random rand = new Random();
 		// generate 4 digit value
 		int shareCode = rand.nextInt(8999) + 1000;
@@ -33,5 +36,25 @@ public class SharesService {
 		repository.save(share);
 		
 		return share;
+	}
+	
+	public HouseholdShare join(int shareCode) {
+		purge();
+		
+		HouseholdShare result = repository.findOne(shareCode);
+		
+		if (result != null) {
+			// one time use, so delete it
+			repository.delete(result);
+		}
+		
+		return result;
+	}
+	
+	private void purge() {
+		Collection<HouseholdShare> expired = repository.findByExpiresLessThan(new Date());
+		for (HouseholdShare householdShare : expired) {
+			repository.delete(householdShare);
+		}
 	}
 }

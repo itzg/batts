@@ -36,4 +36,3 @@
 <script src="${jqueryJsBase}/jquery-ui-1.8.21.custom.min.js"></script>
 <script src="${jqueryJsBase}/jquery.validate.js"></script>
 <script src="${jqueryJsBase}/jquery.qtip.js"></script>
-<script src="${resourceurl}/js/batts.js"></script>
