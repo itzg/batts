@@ -49,6 +49,8 @@ var dialogs = {
    
    editDevice: null,
    
+   createdShare: null,
+   
    error: null,
    
    setup: function() {
@@ -121,6 +123,19 @@ var dialogs = {
        $("#dlgEditDevice-cancel").click(function(){
            closeEditDlg();
        });
+       
+       //// sharing ////
+       
+       this.createdShare = $("#dlgCreatedShare").dialog({
+           autoOpen: false,
+           modal: true,
+           title: "Household Sharing",
+           width: 400,
+       });
+       
+       $("#dlgCreatedShare-OK").click(function(){
+    	  dialogs.createdShare.dialog("close");
+       });
    },
    
    showError: function(msg) {
@@ -134,6 +149,11 @@ var dialogs = {
        $("#dlgEditDevice-desc")[0].value = devices.getSelected("description");
 
        this.editDevice.dialog("open");
+   },
+   
+   showCreatedShareDlg: function(shareCode) {
+	   $("#dlgCreatedShare-shareCode").html(shareCode);
+	   this.createdShare.dialog("open");
    }
         
 };
@@ -383,6 +403,12 @@ function updateBatteryWidgetCounts(battery) {
     battery.find(".counts > .inuse").html(data.inuse);
 }
 
+function requestHouseholdShare() {
+	$.post(config.buildAjaxUrl("/household/api/share"), {}, function(/*HouseholdShare*/ result){
+		dialogs.showCreatedShareDlg(result.shareCode);
+	});
+}
+
 function wireActions() {
     $("#btnAvailable").click(function() {
         adjustAvailableAddOrRemove(!availableSplitterShowing);
@@ -457,6 +483,7 @@ function wireActions() {
     
     $("#btnShareHousehold").click(function(){
     	hideDoMoreMenu();
+    	requestHouseholdShare();
     });
     
     $("#btnLogout").click(function(){

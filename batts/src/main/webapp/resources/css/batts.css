@@ -197,3 +197,15 @@ input.error {
 	margin-top: 0.5em;
 	margin-bottom: 1em;
 }
+
+#dlgCreatedShare-shareCode {
+	margin: 10px 0;
+	font-size: 24pt;
+	font-family: monospace;
+	text-align: center;
+}
+
+#dlgCreatedShare-buttons {
+	margin-top: 10px;
+	text-align: center;
+}

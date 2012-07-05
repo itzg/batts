@@ -111,6 +111,21 @@
                 </div>
             </form>
         </div>
+        
+        <div id="dlgCreatedShare">
+        	<div>
+        		<div>
+	        		Provide this one-time-use share code to the person
+	        		joining this household. They will enter this during 
+	        		their initial setup.
+        		</div>
+        		<div id="dlgCreatedShare-shareCode"></div>
+        		<div>
+        			Please note that it will expire in 24 hours.
+        		</div>
+        	</div>
+        	<div id="dlgCreatedShare-buttons"><button id="dlgCreatedShare-OK">OK</button></div>
+        </div>
     </div>
     
     <div id="tooltips">
