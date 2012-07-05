@@ -27,6 +27,7 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model, Principal user) {
 		BattsUser battsUser = BattsUserDetails.extractFromPrincipal(user);
+		logger.info("User {} entered home location", battsUser);
 		model.addAttribute("battsUser", battsUser);
 		if (battsUser.getHousehold() == null) {
 			return "welcome";

@@ -113,7 +113,7 @@
             </form>
         </div>
         
-        <div id="dlgCreatedShare">
+        <div id="dlgCreatedShare" class="initiallyHidden">
         	<div>
         		<div>
 	        		Provide this one-time-use share code to the person
