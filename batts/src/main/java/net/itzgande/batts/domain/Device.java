@@ -1,12 +1,13 @@
 package net.itzgande.batts.domain;
 
-import java.util.UUID;
+import java.io.Serializable;
 
-import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection="devices")
-public class Device {
+public class Device implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	private String id;
 	
 	private String label;

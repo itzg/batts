@@ -11,7 +11,8 @@
 	
 	<http auto-config="true" >
 		<intercept-url pattern="/**" access="ROLE_USER" />
-		<openid-login user-service-ref="userDetailsService" login-page="/login" authentication-failure-url="/login?login_error=true" />
+		<openid-login user-service-ref="userDetailsService" login-page="/login" authentication-failure-url="/login?login_error=true" 
+			default-target-url="/" always-use-default-target="true"/>
 		<logout/>
 	</http>
 	

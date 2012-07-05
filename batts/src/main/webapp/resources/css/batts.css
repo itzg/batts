@@ -182,3 +182,18 @@ input.error {
 	font-size: 24pt;
 	margin: 20px 0;
 }
+
+#doMoreTooltip {
+	width: 150px;
+}
+
+#doMoreTooltip > button {
+	display: block;
+	margin: 5px;
+	width: 100%;
+}
+
+.description {
+	margin-top: 0.5em;
+	margin-bottom: 1em;
+}

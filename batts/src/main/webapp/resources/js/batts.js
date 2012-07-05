@@ -436,4 +436,31 @@ function wireActions() {
     $("#btnEditDevice").click(function(){
         dialogs.showEditDlg(devices.selectedWidget);
     });
+    
+    function hideDoMoreMenu() {
+    	$("#btnDoMore").qtip('hide');
+    }
+    
+    $("#btnDoMore").qtip({
+    	content: $("#doMoreTooltip"),
+    	position: {
+    		my: 'top right',
+    		at: 'bottom right',
+    		viewport: $(window)
+    	},
+    	show: 'click',
+    	hide: 'click',
+    	style: {
+    		classes: 'ui-tooltip-shadow'
+    	}
+    });
+    
+    $("#btnShareHousehold").click(function(){
+    	hideDoMoreMenu();
+    });
+    
+    $("#btnLogout").click(function(){
+    	hideDoMoreMenu();
+    	window.location = config.buildUrl("/j_spring_security_logout");
+    });
 }

@@ -4,14 +4,27 @@
 <spring:url value="/static" var="resourceurl" />
 <spring:url value="/static/js/jquery" var="jqueryJsBase" />
 <script type="text/javascript">
-    config = {
-        baseurl : "${baseurl}",
-        resourceurl : "${resourceurl}",
-        
-        buildAjaxUrl: function(subpath) {
-           return this.baseurl == "/" ? subpath : this.baseurl + subpath;
-        }
-    }
+	config = {
+		baseurl : "${baseurl}",
+		resourceurl : "${resourceurl}",
+		
+		getBaseUrl : function() {
+			if (this.baseurl.charAt(this.baseurl.length - 1) == '/') {
+				return this.baseurl.substr(0, this.baseurl.length - 1);
+			}
+			else {
+				return this.baseurl;
+			}
+		},
+		
+		buildUrl : function(subpath) {
+			return this.getBaseUrl() + subpath;
+		},
+
+		buildAjaxUrl : function(subpath) {
+			return this.getBaseUrl() + subpath;
+		}
+	}
 </script>
 <link href="${resourceurl}/css/jquery/ui-lightness/jquery-ui-1.8.21.custom.css" rel="Stylesheet" type="text/css">
 <link href="${resourceurl}/css/jquery/jquery.qtip.css" rel="Stylesheet" type="text/css">

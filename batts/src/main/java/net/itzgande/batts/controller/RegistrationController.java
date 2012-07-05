@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping("/")
 public class RegistrationController {
 	private static final Logger logger = LoggerFactory.getLogger(RegistrationController.class);
 
@@ -25,7 +24,7 @@ public class RegistrationController {
 	@Autowired
 	BattsMongoUserDetailsService userDetailsService;
 
-	@RequestMapping(value = "create", method=RequestMethod.GET)
+	@RequestMapping(value = "/create", method=RequestMethod.GET)
 	public String create(Principal user) {
 		BattsUser battsUser = BattsUserDetails.extractFromPrincipal(user);
 		if (battsUser.getHousehold() == null) {

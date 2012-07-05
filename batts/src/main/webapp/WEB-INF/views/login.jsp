@@ -14,9 +14,9 @@
 <body>
 	<div id="banner"></div>
 	<h1>Hi. Who are you?</h1>
-	<div>
+	<div class="description">
 		Every household gets their own private area to keep track of their batteries. 
-		In order to know who you are and where you belong, we
+		In order to know who you are and what batteries belong to you, we
 		just need you authenticate with one of the providers below -- no further information
 		is needed or retrieved.
 	</div>
@@ -31,6 +31,6 @@
 		</div>
 	</form>
 
-	<div>...sorry, there's only one provider for now</div>
+	<div style="font-style: italic;font-size: small; margin-top: 10px">...sorry, there's only one provider for now</div>
 </body>
 </html>

@@ -16,7 +16,7 @@
 <h1>...one more thing</h1>
 <div id="introPara">
 You appear to be new here. In one click we can get you setup with a new household area to
-keep track of those pesky rechargeable batteries. 
+keep track of those elusive rechargeable batteries. 
 </div>
 <a href="create" id="getStarted">Get Started</a>
 </body>

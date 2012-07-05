@@ -113,8 +113,11 @@
         </div>
     </div>
     
-    <div>
-    	Click <a href="j_spring_security_logout">here if you want to logout</a>.
+    <div id="tooltips">
+    	<div id="doMoreTooltip" class="initiallyHidden">
+    		<button id="btnShareHousehold">Share Household</button>
+    		<button id="btnLogout">Logout</button>
+    	</div>
     </div>
 </body>
 </html>
