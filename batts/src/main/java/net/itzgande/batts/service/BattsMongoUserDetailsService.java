@@ -1,5 +1,6 @@
 package net.itzgande.batts.service;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,7 +57,7 @@ public class BattsMongoUserDetailsService implements UserDetailsService, Authent
 
         BattsUser dbUser = userRepository.findByOpenId(id);
         if (dbUser == null) {
-        	dbUser = new BattsUser(id);
+        	dbUser = new BattsUser(id, new Date());
         	userRepository.save(dbUser);
         	logger.debug("Saved {}", dbUser);
         }

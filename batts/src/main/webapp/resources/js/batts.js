@@ -73,7 +73,8 @@ var dialogs = {
            dialogs.addDevice.dialog("close");
        }
        });
-       $("#dlgAddDevice-btnCancel").click(function(){
+       $("#dlgAddDevice-btnCancel").click(function(evt){
+    	   evt.preventDefault();
            dialogs.addDevice.dialog("close");
        });
        
@@ -122,7 +123,8 @@ var dialogs = {
            }
        });
        
-       $("#dlgEditDevice-cancel").click(function(){
+       $("#dlgEditDevice-cancel").click(function(evt){
+    	   evt.preventDefault();
            closeEditDlg();
        });
        
@@ -143,6 +145,13 @@ var dialogs = {
    showError: function(msg) {
        $("#dlgError-content").html(msg);
        this.error.dialog("open");
+   },
+   
+   showAddDevice: function() {
+	   $("#dlgAddDevice-label")[0].value = "";
+	   $("#dlgAddDevice-desc")[0].value = "";
+	   $("#dlgAddDevice-count")[0].value = "2";
+	   this.addDevice.dialog("open");
    },
    
    showEditDlg: function(deviceWidget) {
@@ -226,9 +235,9 @@ function initBatteriesPanel() {
                     '<img src="'+config.resourceurl+'/img/'+val.batteryTypeKey+'-200dpi.png"/>'+
                     '<div class="detail">'+
                     '<div class="label">'+val.batteryTypeKey+'</div>'+
-                    '<div class="counts"><span class="total">'+(val.available+val.inuse)+'</span> total, '+
-                    '<span class="inuse">'+val.inuse+'</span> in use, '+
-                    '<span class="available">'+val.available+'</span> available</div>'+
+                    '<div class="counts"><div class="field"><span class="total">'+(val.available+val.inuse)+'</span> total, </div>'+
+                    '<div class="field"><span class="inuse">'+val.inuse+'</span> in use, </div>'+
+                    '<div class="field"><span class="available">'+val.available+'</span> available</div></div>'+
                     '</div>'+
                 '</div>').data(val);
             batteries.widgetsByType[val.batteryTypeKey] = batteryWidget;
@@ -400,9 +409,9 @@ function adjustHowManyForm(showing, adding) {
 
 function updateBatteryWidgetCounts(battery) {
     var data = battery.data();
-    battery.find(".counts > .available").html(data.available);
-    battery.find(".counts > .total").html(data.available+data.inuse);
-    battery.find(".counts > .inuse").html(data.inuse);
+    battery.find(".counts .available").html(data.available);
+    battery.find(".counts .total").html(data.available+data.inuse);
+    battery.find(".counts .inuse").html(data.inuse);
 }
 
 function requestHouseholdShare() {
@@ -453,7 +462,7 @@ function wireActions() {
 
     
     $("#btnAddDevice").click(function(){
-        dialogs.addDevice.dialog("open");
+    	dialogs.showAddDevice();
     });
     
     devices.btnOutIn = $("#btnOutIn");

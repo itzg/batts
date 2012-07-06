@@ -135,5 +135,7 @@
     		<button id="btnLogout">Logout</button>
     	</div>
     </div>
+    
+    <%@ include file="/WEB-INF/pieces/footer.jsp" %>
 </body>
 </html>

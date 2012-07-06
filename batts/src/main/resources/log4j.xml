@@ -15,14 +15,6 @@
 		<level value="info" />
 	</logger>
 	
-	<logger name="net.itzgande.batts.service.BattsMongoUserDetailsService">
-		<level value="debug" />
-	</logger>
-	
-	<logger name="net.itzgande.batts.controller.HomeController">
-		<level value="debug" />
-	</logger>
-	
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">
 		<level value="info" />

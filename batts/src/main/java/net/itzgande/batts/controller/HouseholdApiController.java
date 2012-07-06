@@ -76,7 +76,7 @@ public class HouseholdApiController {
 	@RequestMapping(value="incAvailable/{batteryTypeKey}", method=RequestMethod.POST, produces="application/json")
 	@ResponseBody
 	public int incAvailable(HttpServletRequest request, @PathVariable String batteryTypeKey, @RequestParam int count) {
-		logger.info("Incrementing available "+batteryTypeKey+" by "+count);
+		logger.debug("Incrementing available "+batteryTypeKey+" by "+count);
 		return adjustAvailable(request, batteryTypeKey, count);
 	}
 	
@@ -88,7 +88,7 @@ public class HouseholdApiController {
 	@RequestMapping(value="decAvailable/{batteryTypeKey}", method=RequestMethod.POST, produces="application/json")
 	@ResponseBody
 	public int decAvailable(HttpServletRequest request, @PathVariable String batteryTypeKey, @RequestParam int count) {
-		logger.info("Decrementing available "+batteryTypeKey+" by "+count);
+		logger.debug("Decrementing available "+batteryTypeKey+" by "+count);
 		return adjustAvailable(request, batteryTypeKey, -count);
 	}
 	
@@ -159,7 +159,7 @@ public class HouseholdApiController {
 		device.setDescription(description);
 		device.setNeeds(new BatteryBundle(type, count));
 		device.setUsing(new BatteryBundle(type, 0));
-		logger.info("Adding device "+device);
+		logger.debug("Adding device {}", device);
 		
 		final Query query = new Query(where("_id").is(householdToFind.getId()));
 		query.fields().include("devices");

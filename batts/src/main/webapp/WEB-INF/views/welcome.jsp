@@ -46,5 +46,7 @@ Enter the household share code. Any existing member of the household can generat
 </div>
 <button type="submit">Join</button>
 </form>
+
+<%@ include file="/WEB-INF/pieces/footer.jsp" %>
 </body>
 </html>

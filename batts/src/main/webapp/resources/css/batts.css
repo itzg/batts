@@ -29,7 +29,11 @@ form label {
 }
 
 #devices > h1 {
-    margin-bottom: 0px;
+    margin: 0 0;
+}
+
+#devices > .content {
+	min-height: 20px;
 }
 
 .battery {
@@ -208,4 +212,10 @@ input.error {
 #dlgCreatedShare-buttons {
 	margin-top: 10px;
 	text-align: center;
+}
+
+#footer {
+	margin-top: 20px;
+	text-align: center;
+	font-size: 10pt;
 }

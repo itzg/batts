@@ -12,8 +12,6 @@
 		<b:property name="writeResultChecking" value="EXCEPTION"/>
 	</b:bean>
 
-	<b:bean class="net.itzgande.batts.service.InitMongoService" init-method="init"/>
-
 	<repositories base-package="net.itzgande.batts.repositories"></repositories>
 
 </b:beans>

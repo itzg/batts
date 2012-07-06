@@ -32,5 +32,8 @@
 	</form>
 
 	<div style="font-style: italic;font-size: small; margin-top: 10px">...sorry, there's only one provider for now</div>
+	
+<jsp:directive.include file="/WEB-INF/pieces/footer.jsp"/>
+
 </body>
 </html>

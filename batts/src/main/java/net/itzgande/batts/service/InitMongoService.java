@@ -12,7 +12,9 @@ import net.itzgande.batts.domain.Household;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.stereotype.Service;
 
+@Service
 public class InitMongoService {
 	private static Logger logger = Logger.getLogger(InitMongoService.class);
 

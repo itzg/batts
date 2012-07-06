@@ -29,7 +29,6 @@
 <link href="${resourceurl}/css/jquery/ui-lightness/jquery-ui-1.8.21.custom.css" rel="Stylesheet" type="text/css">
 <link href="${resourceurl}/css/jquery/jquery.qtip.css" rel="Stylesheet" type="text/css">
 <link href="${resourceurl}/css/batts.css" rel="Stylesheet" type="text/css">
-<link href="../../resources/css/batts.css" rel="Stylesheet" type="text/css">
 
 
 <script src="${jqueryJsBase}/jquery-1.7.2.js"></script>
