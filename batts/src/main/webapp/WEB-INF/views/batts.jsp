@@ -6,7 +6,6 @@
 <html >
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Batts</title>
 
 <%@ include file="/WEB-INF/pieces/common-head.jsp" %>
 <script src="${resourceurl}/js/batts.js"></script>

@@ -1,8 +1,20 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
+<title>batts - organizing your batteries</title>
+
 <spring:url value="/" var="baseurl" />
 <spring:url value="/static" var="resourceurl" />
 <spring:url value="/static/js/jquery" var="jqueryJsBase" />
+
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+<c:set var="absURL" value="${fn:replace(pageContext.request.requestURL, pageContext.request.requestURI, pageContext.request.contextPath)}" />
+
+
+<meta property="og:description" content="A simple little web application that helps you keep track of all your rechargeable batteries."/>
+<meta property="og:image" content="${absURL}/static/img/BattsPreview.png"/>
+
 <script type="text/javascript">
 	config = {
 		baseurl : "${baseurl}",
