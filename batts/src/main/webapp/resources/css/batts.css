@@ -219,3 +219,7 @@ input.error {
 	text-align: center;
 	font-size: 10pt;
 }
+
+#openid_form {
+	height: 120px;
+}

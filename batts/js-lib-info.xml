@@ -23,4 +23,12 @@
 			Tooltip widget
 		</description>
 	</module>
+	
+	<module>
+		<name>openid-selector</name>
+		<url>http://code.google.com/p/openid-selector/</url>
+		<description>
+			Provides selector buttons for the major OpenID providers.
+		</description>
+	</module>
 </section>

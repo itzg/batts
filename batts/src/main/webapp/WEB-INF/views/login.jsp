@@ -9,6 +9,18 @@
 
 <%@ include file="/WEB-INF/pieces/common-head.jsp"%>
 
+<link href="${resourceurl}/openid-selector/css/openid.css" rel="Stylesheet" type="text/css">
+<script type="text/javascript" src="${resourceurl}/openid-selector/js/openid-jquery.js"></script>
+<script type="text/javascript" src="${resourceurl}/openid-selector/js/openid-en.js"></script>
+
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			openid.img_path = "${resourceurl}/openid-selector/images/";
+			openid.init('openid_identifier');
+		});
+	</script>
+
 </head>
 <body>
 	<div id="banner"></div>
@@ -22,17 +34,18 @@
 	<spring:url value="/j_spring_openid_security_check"
 		var="form_url_openid" />
 
-	<form action="${form_url_openid}" method="post">
-		<input name="openid_identifier" size="50" maxlength="100"
-			type="hidden" value="http://www.google.com/accounts/o8/id" />
-		<div class="submit">
-			<input id="proceed_google" type="submit" value="Sign in with Google" />
-		</div>
+	<form action="${form_url_openid}" method="post" id="openid_form">
+		<input type="hidden" name="action" value="verify" />
+			<div id="openid_choice">
+				<div id="openid_btns"></div>
+			</div>
+			<noscript>
+				<p>OpenID is service that allows you to log-on to many different websites using a single indentity.
+				Find out <a href="http://openid.net/what/">more about OpenID</a> and <a href="http://openid.net/get/">how to get an OpenID enabled account</a>.</p>
+			</noscript>
 	</form>
 
-	<div style="font-style: italic;font-size: small; margin-top: 10px">...sorry, there's only one provider for now</div>
-	
-<jsp:directive.include file="/WEB-INF/pieces/footer.jsp"/>
+<%@ include file="/WEB-INF/pieces/footer.jsp" %>
 
 </body>
 </html>
