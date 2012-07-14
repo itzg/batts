@@ -39,7 +39,7 @@ public class BattsMongoUserDetailsService implements UserDetailsService, Authent
 	@Override
 	public UserDetails loadUserByUsername(final String username)
 			throws UsernameNotFoundException {
-		logger.info("Got asked to load user {}",username);
+		logger.debug("Got asked to load user {}",username);
 		BattsUserDetails user = registeredUsers.get(username);
 		
 		if (user == null) {
@@ -53,7 +53,7 @@ public class BattsMongoUserDetailsService implements UserDetailsService, Authent
 	public UserDetails loadUserDetails(OpenIDAuthenticationToken token)
 			throws UsernameNotFoundException {
         String id = token.getIdentityUrl();
-        logger.info("Loading OpenID user details for {}",id);
+        logger.debug("Loading OpenID user details for {}",id);
 
         BattsUser dbUser = userRepository.findByOpenId(id);
         if (dbUser == null) {

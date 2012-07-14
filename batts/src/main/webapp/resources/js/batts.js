@@ -1,5 +1,20 @@
 ///// GLOBALS /////////////////////////////////////////////////////////////////
 
+var poweredBy = [
+                 'Spring 3.1',
+                 'Spring MVC 3.1',
+                 'Spring Data',
+                 'MongoDB',
+                 'Java',
+                 'JavaScript',
+                 'CloudFoundry',
+                 'jQuery',
+                 'jQuery UI',
+                 'qTip2',
+                 'openid-selector',
+                 'bassistance validation'
+                 ];
+
 var batteries = {
    selectedWidget: null,
    
@@ -500,5 +515,21 @@ function wireActions() {
     $("#btnLogout").click(function(){
     	hideDoMoreMenu();
     	window.location = config.buildUrl("/j_spring_security_logout");
+    });
+    
+    $("#poweredBy").qtip({
+    	content: {
+    		text: "Spring"
+    	},
+    	position: {
+    		my: "center left",
+    		at: "center right"
+    	},
+    	events: {
+    		show: function(event, api) {
+    			var index = Math.floor(Math.random()*poweredBy.length);
+    			api.set("content.text", poweredBy[index]);
+    		}
+    	}
     });
 }

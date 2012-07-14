@@ -220,6 +220,10 @@ input.error {
 	font-size: 10pt;
 }
 
+#footer > * {
+	margin: 5px;
+}
+
 #openid_form {
 	height: 120px;
 }
