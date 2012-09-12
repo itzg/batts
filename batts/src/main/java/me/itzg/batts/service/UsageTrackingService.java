@@ -1,8 +1,8 @@
-package net.itzgande.batts.service;
+package me.itzg.batts.service;
 
 import java.util.Date;
 
-import net.itzgande.batts.domain.BattsUser;
+import me.itzg.batts.domain.BattsUser;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;

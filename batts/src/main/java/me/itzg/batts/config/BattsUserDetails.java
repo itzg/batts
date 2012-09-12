@@ -1,9 +1,9 @@
-package net.itzgande.batts.config;
+package me.itzg.batts.config;
 
 import java.security.Principal;
 import java.util.Collection;
 
-import net.itzgande.batts.domain.BattsUser;
+import me.itzg.batts.domain.BattsUser;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;

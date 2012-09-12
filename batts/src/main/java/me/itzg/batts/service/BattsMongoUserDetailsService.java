@@ -1,14 +1,14 @@
-package net.itzgande.batts.service;
+package me.itzg.batts.service;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import net.itzgande.batts.config.BattsUserDetails;
-import net.itzgande.batts.domain.BattsUser;
-import net.itzgande.batts.domain.Household;
-import net.itzgande.batts.repositories.UserRepository;
+import me.itzg.batts.config.BattsUserDetails;
+import me.itzg.batts.domain.BattsUser;
+import me.itzg.batts.domain.Household;
+import me.itzg.batts.repositories.UserRepository;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

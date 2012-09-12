@@ -1,4 +1,4 @@
-package net.itzgande.batts.service;
+package me.itzg.batts.service;
 
 public class ConfigException extends RuntimeException {
 	private static final long serialVersionUID = -2708220594684404401L;

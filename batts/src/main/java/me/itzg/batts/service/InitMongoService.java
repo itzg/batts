@@ -1,13 +1,13 @@
-package net.itzgande.batts.service;
+package me.itzg.batts.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.itzgande.batts.domain.BatteryBundle;
-import net.itzgande.batts.domain.BatteryTypes;
-import net.itzgande.batts.domain.BatteryTypes.Type;
-import net.itzgande.batts.domain.Household;
+import me.itzg.batts.domain.BatteryBundle;
+import me.itzg.batts.domain.BatteryTypes;
+import me.itzg.batts.domain.Household;
+import me.itzg.batts.domain.BatteryTypes.Type;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

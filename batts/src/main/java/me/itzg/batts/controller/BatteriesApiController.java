@@ -1,8 +1,8 @@
-package net.itzgande.batts.controller;
+package me.itzg.batts.controller;
 
 import java.util.Map;
 
-import net.itzgande.batts.domain.BatteryTypes;
+import me.itzg.batts.domain.BatteryTypes;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

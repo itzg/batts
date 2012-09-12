@@ -1,9 +1,9 @@
-package net.itzgande.batts.repositories;
+package me.itzg.batts.repositories;
 
 import java.util.Collection;
 import java.util.Date;
 
-import net.itzgande.batts.domain.HouseholdShare;
+import me.itzg.batts.domain.HouseholdShare;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 

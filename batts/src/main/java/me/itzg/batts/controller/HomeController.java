@@ -1,11 +1,11 @@
-package net.itzgande.batts.controller;
+package me.itzg.batts.controller;
 
 import java.security.Principal;
 import java.util.Locale;
 
-import net.itzgande.batts.config.BattsUserDetails;
-import net.itzgande.batts.domain.BattsUser;
-import net.itzgande.batts.service.UsageTrackingService;
+import me.itzg.batts.config.BattsUserDetails;
+import me.itzg.batts.domain.BattsUser;
+import me.itzg.batts.service.UsageTrackingService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

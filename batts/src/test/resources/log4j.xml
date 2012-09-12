@@ -11,7 +11,7 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="net.itzgande.batts">
+	<logger name="me.itzg.batts">
 		<level value="info" />
 	</logger>
 	

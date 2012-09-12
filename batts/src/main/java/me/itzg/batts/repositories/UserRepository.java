@@ -1,6 +1,6 @@
-package net.itzgande.batts.repositories;
+package me.itzg.batts.repositories;
 
-import net.itzgande.batts.domain.BattsUser;
+import me.itzg.batts.domain.BattsUser;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 

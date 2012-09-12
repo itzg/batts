@@ -1,4 +1,4 @@
-package net.itzgande.batts.domain;
+package me.itzg.batts.domain;
 
 import java.util.HashMap;
 import java.util.List;
@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-import net.itzgande.batts.domain.BatteryTypes.Type;
+import me.itzg.batts.domain.BatteryTypes.Type;
 
 @XmlRootElement
 @XmlType

@@ -9,7 +9,7 @@
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
 
-    <context:component-scan base-package="net.itzgande.batts">
+    <context:component-scan base-package="me.itzg.batts">
         <context:exclude-filter expression="org.springframework.stereotype.Controller" type="annotation"/>
     </context:component-scan>
 	

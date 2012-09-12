@@ -1,16 +1,16 @@
-package net.itzgande.batts.controller;
+package me.itzg.batts.controller;
 
 import java.security.Principal;
 
 import javax.servlet.http.HttpServletRequest;
 
-import net.itzgande.batts.config.BattsUserDetails;
-import net.itzgande.batts.domain.BattsUser;
-import net.itzgande.batts.domain.Household;
-import net.itzgande.batts.domain.HouseholdShare;
-import net.itzgande.batts.service.BattsMongoUserDetailsService;
-import net.itzgande.batts.service.InitMongoService;
-import net.itzgande.batts.service.SharesService;
+import me.itzg.batts.config.BattsUserDetails;
+import me.itzg.batts.domain.BattsUser;
+import me.itzg.batts.domain.Household;
+import me.itzg.batts.domain.HouseholdShare;
+import me.itzg.batts.service.BattsMongoUserDetailsService;
+import me.itzg.batts.service.InitMongoService;
+import me.itzg.batts.service.SharesService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,4 +1,4 @@
-package net.itzgande.batts.config;
+package me.itzg.batts.config;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -6,8 +6,8 @@ import java.util.List;
 
 import javax.xml.bind.JAXB;
 
-import net.itzgande.batts.domain.BatteryTypes;
-import net.itzgande.batts.service.ConfigException;
+import me.itzg.batts.domain.BatteryTypes;
+import me.itzg.batts.service.ConfigException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

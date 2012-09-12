@@ -1,4 +1,4 @@
-package net.itzgande.batts.controller;
+package me.itzg.batts.controller;
 
 import static org.springframework.data.mongodb.core.FindAndModifyOptions.options;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
@@ -12,10 +12,10 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import net.itzgande.batts.DeviceComparator;
-import net.itzgande.batts.domain.BatteryBundle;
-import net.itzgande.batts.domain.Device;
-import net.itzgande.batts.domain.Household;
+import me.itzg.batts.DeviceComparator;
+import me.itzg.batts.domain.BatteryBundle;
+import me.itzg.batts.domain.Device;
+import me.itzg.batts.domain.Household;
 
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;

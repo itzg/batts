@@ -1,13 +1,13 @@
-package net.itzgande.batts.service;
+package me.itzg.batts.service;
 
 import java.util.Collection;
 import java.util.Date;
 import java.util.Random;
 
-import net.itzgande.batts.domain.BattsUser;
-import net.itzgande.batts.domain.Household;
-import net.itzgande.batts.domain.HouseholdShare;
-import net.itzgande.batts.repositories.HouseholdShareRepository;
+import me.itzg.batts.domain.BattsUser;
+import me.itzg.batts.domain.Household;
+import me.itzg.batts.domain.HouseholdShare;
+import me.itzg.batts.repositories.HouseholdShareRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

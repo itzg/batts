@@ -1,8 +1,8 @@
-package net.itzgande.batts;
+package me.itzg.batts;
 
 import java.util.Comparator;
 
-import net.itzgande.batts.domain.Device;
+import me.itzg.batts.domain.Device;
 
 public class DeviceComparator implements Comparator<Device> {
 

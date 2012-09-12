@@ -1,4 +1,4 @@
-package net.itzgande.batts.domain;
+package me.itzg.batts.domain;
 
 import java.io.Serializable;
 import java.util.Date;
