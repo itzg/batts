@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<b:beans xmlns:b="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://www.springframework.org/schema/data/mongo"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
-		http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd">
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mongo="http://www.springframework.org/schema/data/mongo" xmlns:cloud="http://schema.cloudfoundry.org/spring" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd http://schema.cloudfoundry.org/spring http://schema.cloudfoundry.org/spring/cloudfoundry-spring-0.8.xsd ">
 
-	<db-factory id="mongoDbFactory" dbname="batts"/>
 
-	<b:bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
-		<b:constructor-arg ref="mongoDbFactory" />
-		<b:property name="writeResultChecking" value="EXCEPTION"/>
-	</b:bean>
+	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+		<constructor-arg ref="mongoDbFactory" />
+		<property name="writeResultChecking" value="EXCEPTION" />
+	</bean>
 
-	<b:bean class="me.itzg.batts.service.InitMongoService" init-method="init"/>
+	<bean class="me.itzg.batts.service.InitMongoService" init-method="init" />
 
-	<repositories base-package="me.itzg.batts.repositories"></repositories>
+	<mongo:repositories base-package="me.itzg.batts.repositories"></mongo:repositories>
 
-</b:beans>
+	<cloud:mongo-db-factory id="mongoDbFactory"
+		service-name="mongolab-batts">
+	</cloud:mongo-db-factory>
+	
+	<beans profile="dev">
+	   <mongo:db-factory id="mongoDbFactory" dbname="batts" />
+	</beans>
+</beans>

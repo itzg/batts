@@ -1,0 +1,13 @@
+---
+applications:
+- name: batts
+  memory: 512M
+  instances: 1
+  url: batts.cfapps.io
+  path: target\batts-1.0.0-BUILD-SNAPSHOT.war
+  services:
+    mongolab-batts:
+      label: mongolab
+      provider: mongolab
+      version: n/a
+      plan: sandbox
